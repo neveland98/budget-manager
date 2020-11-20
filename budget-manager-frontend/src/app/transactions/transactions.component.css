@@ -1,34 +1,25 @@
-.dashButton {
+.navButton {
     padding: 7px;
     box-shadow: 0 6px 10px 0 rgba(0,0,0,0.2);
     border-radius: 7px; /* 5px rounded corners */
     background-color: #0b3d91;
     border: none;
     outline: rgba(0,0,0,0.8);
-    margin: 5px;
-    font-size: 1.5vh;
+    margin: 2px;
+    font-size: 1.3vh;
     font-family: Arial, Helvetica, sans-serif;
     color: #fff;
-    text-shadow: 0 3px rgba(0,0,0,0.4);
     
 }
-.dashButton:hover {
+.navButton:hover {
     box-shadow: 0 6px 10px 0 rgba(0,0,0,0.95);
 }
-.dashButton:active {
+.navButton:active {
     background-color: #1b4da1;
 }
 h3 {
     font-size: 2vh;
 }
-label {
-    padding-left: 5px;
-    padding-right: 5px;
-}
-input {
-    background-color: #555;
-}
 * {
-    color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff
 }

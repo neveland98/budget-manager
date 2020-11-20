@@ -12,4 +12,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  add(description: string, amount: string): void {
+    let newAmount: number = Number.parseFloat(amount);
+    
+  }
 }

@@ -1,4 +1,14 @@
 <h3>Dashboard</h3>
 <p>Current balance: $</p>
-<button class="dashButton">View all transactions</button>
-<button class="dashButton">Add a new transaction</button>
+<button class="dashButton" routerLink="/transactions/">View all transactions</button>
+<div>
+    <label>Description:
+      <input #transactionDescription />
+    </label>
+    <label>Amount:
+        <input type="number" #amount/>
+    </label>
+    <button class="dashButton" (click)="add(transactionDescription.value,amount.value); transactionDescription.value=''; amount.value='';">
+        Add a new transaction
+    </button>
+</div>
