@@ -2,13 +2,16 @@
 <p>Current balance: $</p>
 <button class="dashButton" routerLink="/transactions/">View all transactions</button>
 <div>
+    <label>Income?
+        <input id = "income" type="checkbox" #income/>
+    </label>
     <label>Description:
       <input #transactionDescription />
     </label>
     <label>Amount:
         <input type="number" #amount/>
     </label>
-    <button class="dashButton" (click)="add(transactionDescription.value,amount.value); transactionDescription.value=''; amount.value='';">
+    <button class="dashButton" (click)="add(transactionDescription.value,amount.value,income.checked); transactionDescription.value=''; amount.value='';">
         Add a new transaction
     </button>
 </div>

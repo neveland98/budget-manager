@@ -12,7 +12,13 @@ export class BudgetService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-
+  //Create
+  addTransaction(transaction: Transaction): Observable<Transaction> {
+    return this.http.post<Transaction>(this.transactionsUrl,transaction,this.httpOptions).pipe(
+      tap((newTransaction: Transaction) => console.log(`added hero with id: ${newTransaction.transactionId}`)),catchError(this.handleError<Transaction>("addTransaction"))
+    )
+  }
+  //Read
   getTransactions(): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(this.transactionsUrl)
     .pipe(tap(_ => console.log('fetched heroes')), catchError(this.handleError<Transaction[]>('getTransactions',[])));
@@ -25,6 +31,7 @@ export class BudgetService {
 
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
+
 
       // TODO: better job of transforming error for user consumption
       // this.log(`${operation} failed: ${error.message}`);
