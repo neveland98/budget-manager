@@ -4,4 +4,4 @@
         <span class="badge">${{transaction.amount}}</span>: {{transaction.description}}
     </li>
 </ul>
-<button class="navButton" routerLink="/dashboard">Dashboard</button>
+<button class="navButton" [routerLink]="['/dashboard',1]">Dashboard</button>

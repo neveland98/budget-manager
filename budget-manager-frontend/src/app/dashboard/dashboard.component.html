@@ -1,6 +1,6 @@
 <h3>Dashboard</h3>
 <p>Current balance: $</p>
-<button class="dashButton" routerLink="/transactions/">View all transactions</button>
+<button class="dashButton" [routerLink]="['/transactions',1]">View all transactions</button>
 <div>
     <label>Income?
         <input id = "income" type="checkbox" #income/>

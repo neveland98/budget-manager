@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Transaction } from '../transaction';
 import { BudgetService } from '../budget.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-transactions',
@@ -9,10 +10,12 @@ import { BudgetService } from '../budget.service';
 })
 export class TransactionsComponent implements OnInit {
   transactions: Transaction[];
+  id: number;
 
-  constructor(private budgetService: BudgetService) { }
+  constructor(private budgetService: BudgetService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     this.getTransactions();
   }
 
