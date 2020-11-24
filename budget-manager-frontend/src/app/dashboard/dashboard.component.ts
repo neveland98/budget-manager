@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BudgetService } from '../budget.service';
+import { Transaction } from '../transaction';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,19 +8,21 @@ import { BudgetService } from '../budget.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  budgetService: BudgetService;
 
-  constructor() { }
+  constructor(private budgetService: BudgetService) { }
 
   ngOnInit(): void {
   }
 
   add(description: string, amount: string, isIncome: boolean): void {
     let newAmount: number = Number.parseFloat(amount);
-    console.log(typeof isIncome);
     //testing code
-    console.log("" + newAmount + " " + description);
+    
     //end testing code
-
+    description = description.trim();
+    if(!description) return;
+    this.budgetService.addTransaction(
+      {transactionId: null, userId: 1, description: description, charge: !isIncome, amount: newAmount} as Transaction
+      ).subscribe();
   }
 }

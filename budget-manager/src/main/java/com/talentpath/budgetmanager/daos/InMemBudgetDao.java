@@ -5,6 +5,7 @@ import com.talentpath.budgetmanager.models.User;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,28 +33,28 @@ public class InMemBudgetDao implements BudgetDao{
         user2.setPassword("t3$tp4$$w0rd");
 
         Transaction t1 = new Transaction();
-        t1.setAmount(2.50);
+        t1.setAmount(BigInteger.valueOf(250));
         t1.setDescription("burger");
         t1.setCharge(true);
         t1.setTransactionId(1);
         t1.setUserId(1);
 
         Transaction t2 = new Transaction();
-        t2.setAmount(900.00);
+        t2.setAmount(BigInteger.valueOf(90000));
         t2.setDescription("rent");
         t2.setCharge(true);
         t2.setTransactionId(2);
         t2.setUserId(2);
 
         Transaction t3 = new Transaction();
-        t3.setAmount(10.50);
+        t3.setAmount(BigInteger.valueOf(1050));
         t3.setDescription("burger");
         t3.setUserId(2);
         t3.setTransactionId(3);
         t3.setCharge(true);
 
         Transaction t4 = new Transaction();
-        t4.setAmount(1000.00);
+        t4.setAmount(BigInteger.valueOf(100000));
         t4.setDescription("paycheck");
         t4.setUserId(1);
         t4.setTransactionId(4);

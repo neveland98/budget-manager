@@ -1,9 +1,11 @@
 package com.talentpath.budgetmanager.models;
 
+import java.math.BigInteger;
+
 public class Transaction {
     Integer transactionId;
     Integer userId;
-    Double amount;
+    BigInteger amount;
     boolean charge;//true = transaction is a charge (debit), false = transaction is income (credit)
     String description;
 
@@ -31,11 +33,11 @@ public class Transaction {
         this.userId = userId;
     }
 
-    public Double getAmount() {
+    public BigInteger getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigInteger amount) {
         this.amount = amount;
     }
 

@@ -15,7 +15,7 @@ export class BudgetService {
   //Create
   addTransaction(transaction: Transaction): Observable<Transaction> {
     return this.http.post<Transaction>(this.transactionsUrl,transaction,this.httpOptions).pipe(
-      tap((newTransaction: Transaction) => console.log(`added hero with id: ${newTransaction.transactionId}`)),catchError(this.handleError<Transaction>("addTransaction"))
+      tap((newTransaction: Transaction) => console.log(`added transaction with id: ${newTransaction.transactionId}`)),catchError(this.handleError<Transaction>("addTransaction"))
     )
   }
   //Read

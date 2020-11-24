@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -44,7 +45,7 @@ public class PostgresBudgetDao implements BudgetDao {
             toReturn.setTransactionId(resultSet.getInt("transactionId"));
             toReturn.setUserId(resultSet.getInt("userId"));
             toReturn.setCharge(resultSet.getBoolean("charge"));
-            toReturn.setAmount(resultSet.getDouble("amount"));
+            toReturn.setAmount(BigInteger.valueOf(resultSet.getLong("amount")));
             toReturn.setDescription((resultSet.getString("description")));
             return toReturn;
         }
