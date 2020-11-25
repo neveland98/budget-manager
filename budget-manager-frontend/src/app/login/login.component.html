@@ -1,1 +1,15 @@
-<p>login works!</p>
+<div class="textContainer centered"><h3>Login</h3></div>
+<div class= "centered separated card">
+    <div class="separated">
+        <label>Username: 
+            <input type="text" #username/>
+        </label>    
+    </div>
+    <div class="separated">
+        <label>Password:
+            <input type="password" #password/>
+        </label>
+    </div>
+    <div id="messages" class="errorMessage">message</div>
+    <div><button class="dashButton" (click)="login(username.value,password.value); username.value=''; password.value='';">Log in</button></div>
+</div>

@@ -24,6 +24,10 @@ export class BudgetService {
     .pipe(tap(_ => console.log('fetched heroes')), catchError(this.handleError<Transaction[]>('getTransactions',[])));
   }
 
+  login(username: string, password: string): void {
+    console.log(username + " " + password);
+  }
+
   constructor(private http: HttpClient) { }
 
   private handleError<T>(operation = 'operation', result?: T) {
