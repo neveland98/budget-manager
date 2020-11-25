@@ -10,6 +10,6 @@
             <input type="password" #password/>
         </label>
     </div>
-    <div id="messages" class="errorMessage">message</div>
+    <div id="messages" class="errorMessage" #messages>message</div>
     <div><button class="dashButton" (click)="login(username.value,password.value); username.value=''; password.value='';">Log in</button></div>
 </div>

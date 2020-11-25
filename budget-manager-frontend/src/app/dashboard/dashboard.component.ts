@@ -18,12 +18,18 @@ export class DashboardComponent implements OnInit {
     this.id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
   }
 
-  add(description: string, amount: string, isIncome: boolean): void {
+  add(description: string, amount: string, isIncome: boolean,dateString: string): void {
     let newAmount: number = Math.floor(Number.parseFloat(amount)*100);
     description = description.trim();
     if(!description) return;
     this.budgetService.addTransaction(
-      {transactionId: null, userId: this.id, description: description, charge: !isIncome, amount: newAmount} as Transaction
+      {transactionId: null,
+        userId: this.id,
+        description: description,
+        charge: !isIncome,
+        amount: newAmount,
+        date: new Date(dateString)
+      } as Transaction
       ).subscribe();
   }
 }

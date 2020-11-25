@@ -24,14 +24,18 @@ public class PostgresBudgetDao implements BudgetDao {
 
     @Override
     public List<Transaction> getAllTransactions(Integer userId) {
-        return template.query("SELECT * FROM \"Transactions\" WHERE \"userId\" = "+ userId +";",new TransactionMapper());
+        return template.query("SELECT * FROM \"Transactions\" WHERE \"userId\" = "+ userId +" ORDER BY date ASC;",new TransactionMapper());
     }
 
     @Override
     public Integer addTransaction(Transaction userTransaction) {
         return template.queryForObject("insert into \"Transactions\" " +
-                "(\"amount\",\"userId\",\"charge\",\"description\") " +
-                "values ('"+ userTransaction.getAmount() +"','"+ userTransaction.getUserId() +"','"+ userTransaction.isCharge() +"','"+ userTransaction.getDescription() +"') " +
+                "(\"amount\",\"userId\",\"charge\",\"description\",\"date\") " +
+                "values ('"+ userTransaction.getAmount() +"','"+
+                userTransaction.getUserId() +"','"+
+                userTransaction.isCharge() +"','"+
+                userTransaction.getDescription() +"','"+
+                new Date(userTransaction.getDate().getTimeInMillis())+"') " +
                 "returning \"transactionId\";",new IdMapper());
     }
 

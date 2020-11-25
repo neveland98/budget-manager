@@ -1,4 +1,4 @@
-<div class="textContainer"><h3>Dashboard</h3></div>
+<h3><div class="textContainer">Dashboard</div></h3>
 <p>Current balance: $</p>
 <button class="dashButton" [routerLink]="['/transactions',1]">View all transactions</button>
 <div>
@@ -14,7 +14,7 @@
     <label>Amount:
         <input type="number" #amount/>
     </label>
-    <button class="dashButton" (click)="add(transactionDescription.value,amount.value,income.checked); transactionDescription.value=''; amount.value='';">
+    <button class="dashButton" (click)="add(transactionDescription.value,amount.value,income.checked,date.value); transactionDescription.value=''; amount.value=''; date.value='';">
         Add a new transaction
     </button>
     <div><button class="dashButton" routerLink='/login'>Logout</button></div>
