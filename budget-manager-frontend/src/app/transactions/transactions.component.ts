@@ -22,4 +22,9 @@ export class TransactionsComponent implements OnInit {
   getTransactions(): void {
     this.budgetService.getTransactions(this.id).subscribe(transactions=>this.transactions = transactions);
   }
+
+  delete(id: number): void {
+    this.transactions = this.transactions.filter(t => t.transactionId !== id);
+    this.budgetService.deleteTransaction(id).subscribe();
+  }
 }

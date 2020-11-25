@@ -1,5 +1,6 @@
 package com.talentpath.budgetmanager.controllers;
 
+import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
 import com.talentpath.budgetmanager.models.Transaction;
 import com.talentpath.budgetmanager.services.BudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,7 @@ public class BudgetController {
         return service.addTransaction(toAdd);
     }
 
+    @DeleteMapping("/transactions/{id}")
+    public void deleteTransaction(@PathVariable Integer id) throws BudgetDaoException { service.deleteById(id); }
 
 }

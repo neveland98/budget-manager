@@ -1,8 +1,10 @@
 package com.talentpath.budgetmanager.daos;
 
+import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
 import com.talentpath.budgetmanager.models.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -37,6 +39,16 @@ public class PostgresBudgetDao implements BudgetDao {
                 userTransaction.getDescription() +"','"+
                 new Date(userTransaction.getDate().getTimeInMillis())+"') " +
                 "returning \"transactionId\";",new IdMapper());
+    }
+
+    @Override
+    public void deleteTransactionById(Integer id) throws BudgetDaoException {
+        try {
+            template.update("DELETE FROM \"Transactions\" WHERE \"transactionId\" = '"+ id +"';");
+        }
+        catch(DataAccessException e) {
+            throw new BudgetDaoException("No transaction with id: " + id);
+        }
     }
 
     @Override

@@ -18,6 +18,11 @@ public class InMemBudgetDao implements BudgetDao{
     Integer nextUserId;
     public InMemBudgetDao() {reset();}
 
+    @Override
+    public void deleteTransactionById(Integer id) {
+        throw new UnsupportedOperationException();
+    }
+
     public void reset() {
         allTransactions.clear();
         allUsers.clear();

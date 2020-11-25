@@ -23,7 +23,16 @@ export class BudgetService {
     return this.http.get<Transaction[]>(this.transactionsUrl+"/"+id)
     .pipe(tap(_ => console.log('fetched heroes')), catchError(this.handleError<Transaction[]>('getTransactions',[])));
   }
+  //Update
 
+  //Delete
+  deleteTransaction(id: number) {
+    const url = `${this.transactionsUrl}/${id}`;
+    return this.http.delete<Transaction>(url, this.httpOptions).pipe(
+      tap(_ => console.log(`deleted hero id=${id}`)),
+      catchError(this.handleError<Transaction>('deleteTransaction'))
+    );
+  }
   login(username: string, password: string): void {
     console.log(username + " " + password);
   }

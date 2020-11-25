@@ -1,6 +1,7 @@
 package com.talentpath.budgetmanager.services;
 
 import com.talentpath.budgetmanager.daos.BudgetDao;
+import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
 import com.talentpath.budgetmanager.models.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,9 @@ public class BudgetService {
 
     public Integer addTransaction(Transaction toAdd) {
         return dao.addTransaction(toAdd);
+    }
+
+    public void deleteById(Integer id) throws BudgetDaoException {
+        dao.deleteTransactionById(id);
     }
 }
