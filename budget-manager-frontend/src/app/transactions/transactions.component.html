@@ -4,4 +4,4 @@
         <span class="dateLabel">{{transaction.date.slice(0,10)}}</span> <span class="transactionTextContainer">${{(transaction.amount/100).toFixed(2)}}: {{transaction.description}}</span>
     </li>
 </ul>
-<button class="navButton" [routerLink]="['/dashboard',1]">Dashboard</button>
+<button class="navButton" [routerLink]="['/dashboard',id]">Dashboard</button>
