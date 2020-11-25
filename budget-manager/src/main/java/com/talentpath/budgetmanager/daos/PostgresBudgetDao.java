@@ -8,8 +8,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Component
@@ -45,7 +48,11 @@ public class PostgresBudgetDao implements BudgetDao {
             toReturn.setUserId(resultSet.getInt("userId"));
             toReturn.setCharge(resultSet.getBoolean("charge"));
             toReturn.setAmount(BigInteger.valueOf(resultSet.getLong("amount")));
-            toReturn.setDescription((resultSet.getString("description")));
+            toReturn.setDescription(resultSet.getString("description"));
+            Date date = resultSet.getDate("date");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            toReturn.setDate(calendar);
             return toReturn;
         }
     }

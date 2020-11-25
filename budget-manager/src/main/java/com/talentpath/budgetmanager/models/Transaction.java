@@ -1,6 +1,8 @@
 package com.talentpath.budgetmanager.models;
 
 import java.math.BigInteger;
+import java.sql.Date;
+import java.util.Calendar;
 
 public class Transaction {
     Integer transactionId;
@@ -8,6 +10,7 @@ public class Transaction {
     BigInteger amount;
     boolean charge;//true = transaction is a charge (debit), false = transaction is income (credit)
     String description;
+    Calendar date;
 
     public Transaction() {}
     public Transaction(Transaction toCopy) {
@@ -16,6 +19,7 @@ public class Transaction {
         this.amount = toCopy.amount;
         this.charge = toCopy.charge;
         this.description = toCopy.description;
+        this.date = toCopy.date;
     }
 
     public Integer getTransactionId() {
@@ -55,5 +59,13 @@ public class Transaction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Calendar getDate() {
+        return date;
+    }
+
+    public void setDate(Calendar date) {
+        this.date = date;
     }
 }
