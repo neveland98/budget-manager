@@ -20,6 +20,6 @@ export class TransactionsComponent implements OnInit {
   }
 
   getTransactions(): void {
-    this.budgetService.getTransactions().subscribe(transactions=>this.transactions = transactions);
+    this.budgetService.getTransactions(this.id).subscribe(transactions=>this.transactions = transactions);
   }
 }

@@ -16,10 +16,10 @@ public class BudgetService {
 
     public List<Transaction> makeTransaction(Transaction userTransaction) {
         dao.addTransaction(userTransaction);
-        return dao.getAllTransactions();
+        return dao.getAllTransactions(userTransaction.getUserId());
     }
-    public List<Transaction> getAllTransactions() {
-        return dao.getAllTransactions();
+    public List<Transaction> getAllTransactions(Integer id) {
+        return dao.getAllTransactions(id);
     }
     public Transaction getTransactionById(Integer transactionId) {
         return dao.getTransactionById(transactionId);

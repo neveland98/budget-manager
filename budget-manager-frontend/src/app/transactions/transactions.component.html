@@ -1,7 +1,7 @@
 <h3>Transactions</h3>
 <ul class="transactions">
     <li *ngFor="let transaction of transactions">
-        <span class="badge">${{transaction.amount}}</span>: {{transaction.description}}
+        <span class="badge">${{(transaction.amount/100).toFixed(2)}}</span>: {{transaction.description}}
     </li>
 </ul>
 <button class="navButton" [routerLink]="['/dashboard',1]">Dashboard</button>

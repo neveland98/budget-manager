@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins="http://localhost:4200")
 @RequestMapping("/api")
 public class BudgetController {
 
     @Autowired
     BudgetService service;
 
-    @GetMapping("/transactions")
-    public List<Transaction> getAllTransactions() {
-        return service.getAllTransactions();
+    @GetMapping("/transactions/{id}")
+    public List<Transaction> getAllTransactions(@PathVariable Integer id) {
+        return service.getAllTransactions(id);
     }
 
     @PostMapping("/transactions")

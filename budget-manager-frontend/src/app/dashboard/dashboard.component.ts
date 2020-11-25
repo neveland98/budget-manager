@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   }
 
   add(description: string, amount: string, isIncome: boolean): void {
-    let newAmount: number = Number.parseFloat(amount);
+    let newAmount: number = Math.floor(Number.parseFloat(amount)*100);
     description = description.trim();
     if(!description) return;
     this.budgetService.addTransaction(

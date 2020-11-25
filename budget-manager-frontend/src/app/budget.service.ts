@@ -19,8 +19,8 @@ export class BudgetService {
     )
   }
   //Read
-  getTransactions(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(this.transactionsUrl)
+  getTransactions(id: number): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(this.transactionsUrl+"/"+id)
     .pipe(tap(_ => console.log('fetched heroes')), catchError(this.handleError<Transaction[]>('getTransactions',[])));
   }
 

@@ -5,7 +5,7 @@ import com.talentpath.budgetmanager.models.Transaction;
 import java.util.List;
 
 public interface BudgetDao {
-    List<Transaction> getAllTransactions();
+    List<Transaction> getAllTransactions(Integer id);
 
     Integer addTransaction(Transaction userTransaction);
 

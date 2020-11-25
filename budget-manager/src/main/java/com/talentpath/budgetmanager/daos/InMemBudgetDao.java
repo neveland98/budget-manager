@@ -63,7 +63,7 @@ public class InMemBudgetDao implements BudgetDao{
     }
 
     @Override
-    public List<Transaction> getAllTransactions() {
+    public List<Transaction> getAllTransactions(Integer userId) {
         throw new UnsupportedOperationException();
     }
 

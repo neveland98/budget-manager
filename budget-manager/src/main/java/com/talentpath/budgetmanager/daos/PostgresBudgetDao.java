@@ -20,9 +20,8 @@ public class PostgresBudgetDao implements BudgetDao {
     private JdbcTemplate template;
 
     @Override
-    public List<Transaction> getAllTransactions() {
-        List<Transaction> allTransactions = template.query("SELECT * FROM \"Transactions\";",new TransactionMapper());
-        return allTransactions;
+    public List<Transaction> getAllTransactions(Integer userId) {
+        return template.query("SELECT * FROM \"Transactions\" WHERE \"userId\" = "+ userId +";",new TransactionMapper());
     }
 
     @Override
