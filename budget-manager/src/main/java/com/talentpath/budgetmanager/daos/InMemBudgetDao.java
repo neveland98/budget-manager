@@ -28,12 +28,12 @@ public class InMemBudgetDao implements BudgetDao{
         allUsers.clear();
 
         User user1 = new User();
-        user1.setUserId(1);
+        user1.setId(1);
         user1.setUsername("testuser");
         user1.setPassword("password");
 
         User user2 = new User();
-        user2.setUserId(2);
+        user2.setId(2);
         user2.setUsername("anotheruser");
         user2.setPassword("t3$tp4$$w0rd");
 

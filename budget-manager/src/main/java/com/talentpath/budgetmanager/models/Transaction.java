@@ -11,8 +11,18 @@ public class Transaction {
     boolean charge;//true = transaction is a charge (debit), false = transaction is income (credit)
     String description;
     Calendar date;
+    Category category;
 
     public Transaction() {}
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public Transaction(Transaction toCopy) {
         this.transactionId = toCopy.transactionId;
         this.userId = toCopy.userId;
@@ -20,6 +30,7 @@ public class Transaction {
         this.charge = toCopy.charge;
         this.description = toCopy.description;
         this.date = toCopy.date;
+        this.category = toCopy.category;
     }
 
     public Integer getTransactionId() {
