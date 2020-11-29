@@ -74,6 +74,11 @@ input {
     align-items: center;
     justify-content: center;
 }
+.actuallyCentered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 * {
     color: #ffffff;
     font-family: Arial, Helvetica, sans-serif;

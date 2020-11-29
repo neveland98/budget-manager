@@ -1,9 +1,20 @@
 <h3><div class="textContainer centered">User Registration</div></h3>
-<div class= "centered separated card">
-    <form (ngSubmit)="register();">
-        <label>Username: 
-            
+<div *ngIf="!loggedIn" class= "centered separated card">
+    <form (ngSubmit)="onSubmit();">
+        <label id="inputs" class="separated">Username: 
+            <input name="username" [(ngModel)]="registData.username"/>
         </label>
-        
+        <label id="inputs" class="separated">Email:
+            <input type="email" name="email" [(ngModel)]="registData.email"/>
+        </label>
+        <label id="inputs" class="separated">Password:
+            <input type="password" name="password" [(ngModel)]="registData.password"/>
+        </label>
+        <label id="inputs" class="separated">Confirm Password:
+            <input type="password" name="confirm" [(ngModel)]="confirmPassword"/>
+        </label>
+        <div class="actuallyCentered">
+            <button class="dashButton actuallyCentered">Create new account</button>
+        </div>
     </form>
 </div>

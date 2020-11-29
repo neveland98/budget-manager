@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthorizationService } from '../authorization.service';
 import { RegisterRequest } from '../register-request';
+import { TokenStorageService } from '../token-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -13,9 +16,16 @@ export class RegisterComponent implements OnInit {
     email: "",
     password: ""
   }
-  constructor() { }
+  confirmPassword: string = "";
+  constructor(private tokenStorage: TokenStorageService, private auth: AuthorizationService, private router: Router) { }
 
   ngOnInit(): void {
+    if(this.tokenStorage.getUser()) this.loggedIn = true;
   }
+  onSubmit():void{
+    this.auth.register(this.registData).subscribe(message=>console.log(message));
+    this.router.navigate(['login']);
+  }
+
   register() {}
 }
