@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins={"http://localhost:4200","http://0.0.0.0:4200"})
+@CrossOrigin
 @RequestMapping("/api")
 public class BudgetController {
 

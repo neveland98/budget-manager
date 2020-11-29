@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Transaction } from '../transaction';
 import { BudgetService } from '../budget.service';
 import { ActivatedRoute } from '@angular/router';
+import { TokenStorageService } from '../token-storage.service';
 
 @Component({
   selector: 'app-transactions',
@@ -10,17 +11,20 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TransactionsComponent implements OnInit {
   transactions: Transaction[];
-  id: number;
+  // id: number;
 
-  constructor(private budgetService: BudgetService, private route: ActivatedRoute) { }
+  constructor(private budgetService: BudgetService, private route: ActivatedRoute,private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
+    // this.id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     this.getTransactions();
   }
 
   getTransactions(): void {
-    this.budgetService.getTransactions(this.id).subscribe(transactions=>this.transactions = transactions);
+    this.budgetService.getTransactions(this.tokenStorage.getUser().id).subscribe(
+      transactions=>
+      this.transactions = transactions
+      );
   }
 
   delete(id: number): void {

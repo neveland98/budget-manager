@@ -1,20 +1,20 @@
-<div class="textContainer centered"><h3>Login</h3></div>
+<h3><div class="textContainer centered">Login</div></h3>
 <div class= "centered separated card">
     <div>
         <div id="inputs" class="separated">
             <label>Username: 
-                <input type="text" #username/>
+                <input type="text" [(ngModel)]="request.username" #username/>
             </label>    
         </div>
         <div id="inputs" class="separated">
             <label>Password:
-                <input type="password" #password/>
+                <input type="password" [(ngModel)]="request.password" #password/>
             </label>
         </div>
     </div>
     <div id="loginButtons">
-        <button id="login" class="dashButton" (click)="login(username.value,password.value); username.value=''; password.value='';">Log in</button>
-        <button id="newaccount" class="dashButton" (click)="login(username.value,password.value); username.value=''; password.value='';">Create new account</button>
+        <button id="login" class="dashButton" (click)="login();">Log in</button>
+        <button id="newaccount" class="dashButton" (click)="register();">Create new account</button>
     </div>
     <div id="messages" class="errorMessage" #messages>message</div>
 </div>

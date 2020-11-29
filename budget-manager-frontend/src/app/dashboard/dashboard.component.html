@@ -1,6 +1,6 @@
 <h3><div class="textContainer">Dashboard</div></h3>
 <p>Current balance: $</p>
-<button class="dashButton" [routerLink]="['/transactions',id]">View all transactions</button>
+<button class="dashButton" [routerLink]="['/transactions']">View all transactions</button>
 <div>
     <label>Income?
         <input id = "income" type="checkbox" #income/>
@@ -17,5 +17,5 @@
     <button class="dashButton" (click)="add(transactionDescription.value,amount.value,income.checked,date.value); transactionDescription.value=''; amount.value=''; date.value='';">
         Add a new transaction
     </button>
-    <div><button class="dashButton" routerLink='/login'>Logout</button></div>
+    <div><button class="dashButton" (click)="signOut();">Logout</button></div>
 </div>
