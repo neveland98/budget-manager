@@ -1,31 +1,16 @@
-.dashButton {
+.navButton {
     padding: 7px;
     box-shadow: 0 6px 10px 0 rgba(0,0,0,0.2);
     border-radius: 7px; /* 5px rounded corners */
     background-color: #0b3d91;
     border: none;
     outline: rgba(0,0,0,0.8);
-    margin-top: 7px;
-    margin-bottom: 7px;
-    margin-right:10px;
+    margin: 2px;
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
     color: #fff;
-    text-shadow: 0 3px rgba(0,0,0,0.4);
     cursor: pointer;
-}
-.dashButton:hover {
-    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.95);
-}
-.dashButton:active {
-    background-color: #1b4da1;
-}
-h3 {
-    font-size: 30px;
-}
-label {
-    padding-left: 5px;
-    padding-right: 5px;
+    
 }
 .textContainer {
     background-color: #0b3d91;
@@ -37,47 +22,66 @@ label {
     border-radius: 7px;
     text-shadow: 0 5px rgba(0,0,0,0.5);
     font-family: Arial, Helvetica, sans-serif;
-    padding: 10px;
     text-align: center;
+    padding: 10px;
 }
-.centered {
-    width: 20%;
-    margin-left: 40%;
-    margin-right: 40%;
+.navButton:hover {
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.95);
 }
-.separated {
-    margin-top: 3%;
-    margin-bottom: 3%;
+.navButton:active {
+    background-color: #1b4da1;
+}
+h3 {
+    font-size: 30px;
 }
 input {
     background-color: #555;
     border-radius: 5px;
     border: none;
 }
-select {
-    background-color: #555;
+.separated {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.transactionContainer {
+    padding: 10px;
+    padding-left:0px;
+    background-color: #333;
+    box-shadow: 5px 5px rgba(0,0,0,0.2);
     border-radius: 5px;
-    border: none;
+    width: fit-content;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.transactionTextContainer {
+    padding: 10px;   
 }
 .card {
     box-shadow: 5px 5px rgba(0,0,0,0.2);
     border-radius:7px;
     background-color: #333;
     padding: 5px;
+    width: fit-content;
 }
-.errorMessage {
-    color: red;
+.dateLabel {
+    background-color: #555;
+    padding: 10px;
+    border-radius: 5px;
+}
+.deleteButton {
+    background-color: #555;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
     margin-left: 5px;
+    /* box-shadow: 3px 3px rgba(0,0,0,0.2); */
 }
-#loginButtons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.deleteButton:hover {
+    background-color: #777;
 }
-.inputs {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.deleteButton:active {
+    background-color: #aaa;
 }
 * {
     color: #ffffff;

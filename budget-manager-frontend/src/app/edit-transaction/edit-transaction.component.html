@@ -1,4 +1,4 @@
-<div *ngIf="transaction" class="centered separated card">
+<div *ngIf="transaction && categories" class="centered separated card">
     <form (ngSubmit)="update(date.value);">
         <div class="separated inputs">
             <label>Date:
@@ -18,6 +18,14 @@
                 <input type="text" [ngModel]="transaction.description" (ngModelChange)="transaction.description = $event" name="description" placeholder="description"/>
             </label>
         </div>
+        <div class="separated inputs">
+            <label>Category:
+                <select [(ngModel)]="transaction.category" name ="categories" class="input">
+                    <option *ngFor="let category of categories" [ngValue]="category">{{category.categoryName}}</option>
+                </select>
+            </label>
+        </div>
         <button class="dashButton centered">Submit</button>
     </form>
+    <button class="dashButton centered" routerLink='/transactions'>Cancel</button>
 </div>

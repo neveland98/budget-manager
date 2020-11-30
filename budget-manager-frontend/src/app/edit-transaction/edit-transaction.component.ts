@@ -2,6 +2,7 @@ import { Route } from '@angular/compiler/src/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BudgetService } from '../budget.service';
+import { Category } from '../category';
 import { TokenStorageService } from '../token-storage.service';
 import { Transaction } from '../transaction';
 
@@ -12,11 +13,13 @@ import { Transaction } from '../transaction';
 })
 export class EditTransactionComponent implements OnInit {
   dateString: string;
+  categories: Category[];
   @Input() transaction: Transaction;
   constructor(private budgetService: BudgetService, private router:Router, private tokenStorage:TokenStorageService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getTransaction();
+    this.getCategories();
   }
   getTransaction(): void{
     const id = +this.route.snapshot.paramMap.get('id');
@@ -28,5 +31,10 @@ export class EditTransactionComponent implements OnInit {
     dateString+="T00:00:00";
     this.transaction.date = new Date(dateString);//this is the hackiest fix i've ever done in my life and I hope I never have to do anything like this again.
     this.budgetService.updateTransaction(this.transaction).subscribe(()=>this.router.navigate(['transactions']));
+  }
+  getCategories():void {
+    this.budgetService.getCategories(this.tokenStorage.getUser().id).subscribe(categories=>{
+      this.categories=categories;
+    });
   }
 }

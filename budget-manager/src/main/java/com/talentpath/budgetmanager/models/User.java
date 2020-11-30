@@ -44,11 +44,11 @@ public class User {
         this.email = email;
     }
 
-    public Integer getId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setId(Integer userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

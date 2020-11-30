@@ -1,0 +1,18 @@
+<h3><div class="textContainer">Categories</div></h3>
+<ul class="transactions">
+    <li class="transactionContainer" *ngFor="let category of categories">
+        <span class="transactionTextContainer">{{category.categoryName}}</span>
+        <button class="deleteButton" (click)="edit(category.categoryId);">edit</button>
+        <button class="deleteButton" (click)="delete(category.categoryId);">X</button>
+    </li>
+
+</ul>
+<div class="separated card">
+    <form (ngSubmit)="createNewCategory();">
+        <label>New category name:
+            <input type="text" name="newCategory" [(ngModel)]="newCategory.categoryName"/>
+        </label>
+        <button class="navButton">Create New Category</button>
+    </form>
+</div>
+<button class="navButton" [routerLink]="['/dashboard']">Dashboard</button>

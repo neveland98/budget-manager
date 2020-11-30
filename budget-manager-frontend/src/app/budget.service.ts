@@ -3,6 +3,7 @@ import { Transaction } from './transaction';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Category } from './category';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class BudgetService {
   private transactionsUrl = 'http://localhost:8080/api/transactions';
   private transactionUrl = 'http://localhost:8080/api/transaction';
+  private categoriesUrl = 'http://localhost:8080/api/categories';
+  private categoryUrl = 'http://localhost:8080/api/category';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -45,6 +48,28 @@ export class BudgetService {
   }
   login(username: string, password: string): void {
     console.log(username + " " + password);
+  }
+
+  createNewCategory(toAdd: Category): Observable<Category> {
+    return this.http.post<Category>(this.categoriesUrl,toAdd,this.httpOptions)
+    .pipe(tap((newCategory: Category) => console.log(`added category with id: ${newCategory.categoryId}`)),
+    catchError(this.handleError<Category>("addCategory")));
+  }
+  getCategories(userId: number): Observable<Category[]> {
+    return this.http.get<Category[]>("http://localhost:8080/api/categories/"+userId)
+    .pipe(tap(_=>console.log('fetched categories')), catchError(this.handleError<Category[]>('getCategories',[])));
+  }
+  getCategory(categoryId: number): Observable<Category> {
+    return this.http.get<Category>(this.categoryUrl+"/"+categoryId)
+    .pipe(tap(_=>console.log(`fetched category with id: ${categoryId}`)),catchError(this.handleError<Category>("getCategory",null)));
+  }
+  updateCategory(updated: Category): Observable<any> {
+    return this.http.put(this.categoriesUrl,updated,this.httpOptions)
+    .pipe(tap(_=>console.log(`updated category with id: ${updated.categoryId}`)),catchError(this.handleError<any>("updateCategory",null)));
+  }
+  deleteCategory(categoryId: number): Observable<any> {
+    return this.http.delete<Category>(this.categoryUrl+"/"+categoryId)
+    .pipe(tap(_=>console.log(`deleted category with id: ${categoryId}`)),catchError(this.handleError<any>("deleteCategory")));
   }
 
   constructor(private http: HttpClient) { }

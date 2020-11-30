@@ -11,6 +11,8 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth-inteceptor';
 import { EditTransactionComponent } from './edit-transaction/edit-transaction.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { EditCategoryComponent } from './edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { EditTransactionComponent } from './edit-transaction/edit-transaction.co
     TransactionsComponent,
     LoginComponent,
     RegisterComponent,
-    EditTransactionComponent
+    EditTransactionComponent,
+    CategoriesComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule,

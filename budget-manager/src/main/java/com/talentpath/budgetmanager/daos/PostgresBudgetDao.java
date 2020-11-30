@@ -1,6 +1,7 @@
 package com.talentpath.budgetmanager.daos;
 
 import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
+import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import javax.xml.crypto.Data;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -32,19 +34,24 @@ public class PostgresBudgetDao implements BudgetDao {
     @Override
     public Integer addTransaction(Transaction userTransaction) {
         return template.queryForObject("insert into \"Transactions\" " +
-                "(\"amount\",\"userId\",\"charge\",\"description\",\"date\") " +
+                "(\"amount\",\"userId\",\"charge\",\"description\",\"date\",\"associated_category_id\") " +
                 "values ('"+ userTransaction.getAmount() +"','"+
                 userTransaction.getUserId() +"','"+
                 userTransaction.isCharge() +"','"+
                 userTransaction.getDescription() +"','"+
-                new Date(userTransaction.getDate().getTimeInMillis())+"') " +
+                new Date(userTransaction.getDate().getTimeInMillis())+"','" +
+                userTransaction.getCategory().getCategoryId()+"') " +
                 "returning \"transactionId\";",new IdMapper());
     }
 
     @Override
     public Integer editTransaction(Transaction updated) {
         return template.queryForObject("update \"Transactions\"\n" +
-                "set charge = '"+ updated.isCharge() +"', description = '"+ updated.getDescription() +"', amount = '"+ updated.getAmount() +"', \"date\" = '"+ new Date(updated.getDate().getTimeInMillis()) +"' " +
+                "set charge = '"+ updated.isCharge() +"', " +
+                "description = '"+ updated.getDescription() +"', " +
+                "amount = '"+ updated.getAmount() +"', " +
+                "\"date\" = '"+ new Date(updated.getDate().getTimeInMillis()) +"', " +
+                "associated_category_id = '" + updated.getCategory().getCategoryId() + "' " +
                 "where \"transactionId\" = '"+ updated.getTransactionId() +"' returning \"transactionId\";",new IdMapper());
     }
 
@@ -68,6 +75,37 @@ public class PostgresBudgetDao implements BudgetDao {
         }
     }
 
+    @Override
+    public Category addCategory(Category userCategory) throws BudgetDaoException {
+        Integer id = template.queryForObject("insert into \"categories\" (\"category_name\",\"user_id\",\"associated_user_user_id\") values ('"+ userCategory.getCategoryName() +"','"+ userCategory.getUser_id() +"','"+ userCategory.getUser_id() +"') returning category_id;",new CategoryIdMapper());
+        return getCategoryById(id);
+    }
+
+    @Override
+    public Category getCategoryById(Integer categoryId) throws BudgetDaoException {
+        try {
+            return template.queryForObject("select * from \"categories\" where \"category_id\" = "+ categoryId +";",new CategoryMapper());
+        }
+        catch(DataAccessException e) {
+            throw new BudgetDaoException("No category with id: " + categoryId);
+        }
+    }
+
+    @Override
+    public Integer editCategory(Category updated) throws BudgetDaoException {
+        try {
+            return template.queryForObject("update categories set category_name='"+ updated.getCategoryName() +"' where category_id = '"+ updated.getCategoryId() +"' returning category_id;",new CategoryIdMapper());
+        }
+        catch (DataAccessException e) {
+            throw new BudgetDaoException("No category with id: " + updated.getCategoryId());
+        }
+    }
+
+    @Override
+    public void deleteCategoryById(Integer categoryId) {
+        template.update("DELETE FROM categories WHERE category_id = "+ categoryId +";");
+    }
+
     private class TransactionMapper implements RowMapper<Transaction> {
         @Override
         public Transaction mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -81,6 +119,7 @@ public class PostgresBudgetDao implements BudgetDao {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
             toReturn.setDate(calendar);
+            toReturn.setCategory(template.queryForObject("select * from categories where category_id = '"+ resultSet.getInt("associated_category_id") +"';",new CategoryMapper()));
             return toReturn;
         }
     }
@@ -89,6 +128,24 @@ public class PostgresBudgetDao implements BudgetDao {
         @Override
         public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
             return resultSet.getInt("transactionId");
+        }
+    }
+
+    private class CategoryIdMapper implements RowMapper<Integer> {
+        @Override
+        public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+            return resultSet.getInt("category_id");
+        }
+    }
+
+    private class CategoryMapper implements RowMapper <Category>{
+        @Override
+        public Category mapRow(ResultSet resultSet, int i) throws SQLException {
+            Category toReturn = new Category();
+            toReturn.setCategoryId(resultSet.getInt("category_id"));
+            toReturn.setCategoryName(resultSet.getString("category_name"));
+            toReturn.setUser_id(resultSet.getInt("user_id"));
+            return toReturn;
         }
     }
 }

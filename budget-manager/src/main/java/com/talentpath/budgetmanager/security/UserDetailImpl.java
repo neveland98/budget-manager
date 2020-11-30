@@ -23,7 +23,7 @@ public class UserDetailImpl implements UserDetails {
     public UserDetailImpl() {}
 
     public UserDetailImpl(User buildFrom) {
-        this.id = buildFrom.getId();
+        this.id = buildFrom.getUserId();
         this.username = buildFrom.getUsername();
         this.email = buildFrom.getEmail();
 

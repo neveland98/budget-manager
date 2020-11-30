@@ -1,3 +1,5 @@
+import { Category } from './category';
+
 export interface Transaction {
     transactionId: number;
     userId: number;
@@ -5,4 +7,5 @@ export interface Transaction {
     amount: number;
     charge: boolean;
     date: Date;
+    category: Category;
 }

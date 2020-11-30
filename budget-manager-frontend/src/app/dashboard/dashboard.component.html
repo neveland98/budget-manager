@@ -1,6 +1,7 @@
 <h3><div class="textContainer">Dashboard</div></h3>
 <p>Current balance: $</p>
 <button class="dashButton" [routerLink]="['/transactions']">View all transactions</button>
+<button class="dashButton" [routerLink]="['/categories']">View all categories</button>
 <div>
     <label>Income?
         <input id = "income" type="checkbox" #income/>
@@ -13,6 +14,11 @@
     </label>
     <label>Amount:
         <input type="number" #amount/>
+    </label>
+    <label>Category:
+        <select *ngIf="selectedCategory" class="input" [(ngModel)]="selectedCategory" #category>
+            <option *ngFor="let category of categories" [ngValue]="category">{{category.categoryName}}</option>
+        </select>
     </label>
     <button class="dashButton" (click)="add(transactionDescription.value,amount.value,income.checked,date.value); transactionDescription.value=''; amount.value=''; date.value='';">
         Add a new transaction

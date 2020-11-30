@@ -1,0 +1,15 @@
+<div *ngIf="category" class="centered separated card">
+    <form (ngSubmit)="update();">
+        <div class="separated inputs">
+            <label>Name:
+                <input type="text" name="categoryName" [(ngModel)]="category.categoryName"/>
+            </label>
+        </div>
+        <div class="separated inputs">
+            <button class="dashButton">Submit</button>
+        </div>
+    </form>
+    <div class="separated inputs">
+        <button class="dashButton" routerLink="/categories">Cancel</button>
+    </div>
+</div>

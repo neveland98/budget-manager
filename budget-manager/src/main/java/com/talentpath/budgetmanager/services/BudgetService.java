@@ -1,7 +1,9 @@
 package com.talentpath.budgetmanager.services;
 
 import com.talentpath.budgetmanager.daos.BudgetDao;
+import com.talentpath.budgetmanager.daos.CategoryRepository;
 import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
+import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,8 @@ import java.util.List;
 @Service
 public class BudgetService {
     BudgetDao dao;
+    @Autowired
+    CategoryRepository repo;
 
     @Autowired
     public BudgetService(BudgetDao dao) {this.dao = dao;}
@@ -36,5 +40,25 @@ public class BudgetService {
 
     public Integer updateTransaction(Transaction updated) {
         return dao.editTransaction(updated);
+    }
+
+    public List<Category> getUserCategories(Integer id) {
+        return repo.findAllByAssociatedUser_UserId(id);
+    }
+
+    public Category addCategory(Category toAdd) throws BudgetDaoException {
+        return dao.addCategory(toAdd);
+    }
+
+    public Category getCategoryById(Integer id) throws BudgetDaoException {
+        return dao.getCategoryById(id);
+    }
+
+    public Integer updateCategory(Category updated) throws BudgetDaoException {
+        return dao.editCategory(updated);
+    }
+
+    public void deleteCategoryById(Integer id) {
+        dao.deleteCategoryById(id);
     }
 }

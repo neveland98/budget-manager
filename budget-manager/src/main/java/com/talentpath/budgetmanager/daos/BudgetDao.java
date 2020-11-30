@@ -1,6 +1,7 @@
 package com.talentpath.budgetmanager.daos;
 
 import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
+import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 
 import java.util.List;
@@ -15,4 +16,9 @@ public interface BudgetDao {
     void deleteTransactionById(Integer id) throws BudgetDaoException;
 
     Integer editTransaction(Transaction updated);
+
+    Category addCategory(Category userCategory) throws BudgetDaoException;
+    Category getCategoryById(Integer categoryId) throws BudgetDaoException;
+    Integer editCategory(Category updated) throws BudgetDaoException;
+    void deleteCategoryById(Integer categoryId);
 }

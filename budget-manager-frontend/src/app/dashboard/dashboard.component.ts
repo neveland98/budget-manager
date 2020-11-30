@@ -3,6 +3,7 @@ import { BudgetService } from '../budget.service';
 import { Transaction } from '../transaction';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from '../token-storage.service';
+import { Category } from '../category';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,12 +11,19 @@ import { TokenStorageService } from '../token-storage.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  categories: Category[];
+  selectedCategory: Category = {
+    categoryId: 0,
+    categoryName: "",
+    user_id: this.tokenStorage.getUser().id
+  }
   //id: number;
   private sub: any;//todo: figure out if this does anything
   constructor(private budgetService: BudgetService,private route: ActivatedRoute,private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
     if(!this.tokenStorage.getUser()) this.router.navigate(['login']);
+    this.getCategories();
   }
 
   add(description: string, amount: string, isIncome: boolean,dateString: string): void {
@@ -30,12 +38,17 @@ export class DashboardComponent implements OnInit {
         description: description,
         charge: !isIncome,
         amount: newAmount,
-        date: new Date(dateString)
+        date: new Date(dateString),
+        category: this.selectedCategory
       } as Transaction
       ).subscribe();
   }
   signOut() {
     this.tokenStorage.signOut();
     this.router.navigate(['login']);
+  }
+
+  getCategories():void {
+    this.budgetService.getCategories(this.tokenStorage.getUser().id).subscribe(categories=>this.categories=categories);
   }
 }

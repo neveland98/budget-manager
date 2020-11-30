@@ -1,5 +1,6 @@
 package com.talentpath.budgetmanager.daos;
 
+import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 import com.talentpath.budgetmanager.models.User;
 import org.springframework.context.annotation.Profile;
@@ -12,6 +13,26 @@ import java.util.List;
 @Component
 @Profile({"servicetesting"})
 public class InMemBudgetDao implements BudgetDao{
+    @Override
+    public Category addCategory(Category userCategory) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Category getCategoryById(Integer categoryId) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Integer editCategory(Category updated) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void deleteCategoryById(Integer categoryId) {
+        throw new UnsupportedOperationException();
+    }
+
     List<Transaction> allTransactions = new ArrayList<>();
     List<User> allUsers = new ArrayList<>();
     Integer nextTrId;
@@ -33,12 +54,12 @@ public class InMemBudgetDao implements BudgetDao{
         allUsers.clear();
 
         User user1 = new User();
-        user1.setId(1);
+        user1.setUserId(1);
         user1.setUsername("testuser");
         user1.setPassword("password");
 
         User user2 = new User();
-        user2.setId(2);
+        user2.setUserId(2);
         user2.setUsername("anotheruser");
         user2.setPassword("t3$tp4$$w0rd");
 
