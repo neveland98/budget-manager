@@ -9,6 +9,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class BudgetService {
   private transactionsUrl = 'http://localhost:8080/api/transactions';
+  private transactionUrl = 'http://localhost:8080/api/transaction';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -21,15 +22,24 @@ export class BudgetService {
   //Read
   getTransactions(id: number): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(this.transactionsUrl+"/"+id)
-    .pipe(tap(_ => console.log('fetched heroes')), catchError(this.handleError<Transaction[]>('getTransactions',[])));
+    .pipe(tap(_ => console.log('fetched transactions')), catchError(this.handleError<Transaction[]>('getTransactions',[])));
+  }
+  getTransaction(transactionId: number): Observable<Transaction> {
+    return this.http.get<Transaction>(this.transactionUrl+"/"+transactionId)
+    .pipe(tap(_=>console.log(`fetched transaction with id: ${transactionId}`)), catchError(this.handleError<Transaction>('getTransaction',null)));
   }
   //Update
-
+  updateTransaction(transaction: Transaction): Observable<any> {
+    return this.http.put(this.transactionsUrl, transaction, this.httpOptions).pipe(
+      tap(_ => console.log(`updated transaction id=${transaction.transactionId}`)),
+      catchError(this.handleError<any>('updateTransaction'))
+    );
+  }
   //Delete
   deleteTransaction(id: number) {
     const url = `${this.transactionsUrl}/${id}`;
     return this.http.delete<Transaction>(url, this.httpOptions).pipe(
-      tap(_ => console.log(`deleted hero id=${id}`)),
+      tap(_ => console.log(`deleted transaction id=${id}`)),
       catchError(this.handleError<Transaction>('deleteTransaction'))
     );
   }

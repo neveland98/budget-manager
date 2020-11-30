@@ -10,7 +10,7 @@ public interface BudgetDao {
 
     Integer addTransaction(Transaction userTransaction);
 
-    Transaction getTransactionById(Integer transactionId);
+    Transaction getTransactionById(Integer transactionId) throws BudgetDaoException;
 
     void deleteTransactionById(Integer id) throws BudgetDaoException;
 

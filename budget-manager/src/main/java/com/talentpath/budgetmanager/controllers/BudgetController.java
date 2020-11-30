@@ -21,6 +21,9 @@ public class BudgetController {
         return service.getAllTransactions(id);
     }
 
+    @GetMapping("/transaction/{id}")
+    public Transaction getTransactionById(@PathVariable Integer id) throws BudgetDaoException {return service.getTransactionById(id);}
+
     @PostMapping("/transactions")
     public Integer addTransaction(@RequestBody Transaction toAdd) {
         return service.addTransaction(toAdd);

@@ -22,7 +22,7 @@ public class BudgetService {
     public List<Transaction> getAllTransactions(Integer id) {
         return dao.getAllTransactions(id);
     }
-    public Transaction getTransactionById(Integer transactionId) {
+    public Transaction getTransactionById(Integer transactionId) throws BudgetDaoException {
         return dao.getTransactionById(transactionId);
     }
 

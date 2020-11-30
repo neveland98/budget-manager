@@ -1,0 +1,79 @@
+.dashButton {
+    padding: 7px;
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.2);
+    border-radius: 7px; /* 5px rounded corners */
+    background-color: #0b3d91;
+    border: none;
+    outline: rgba(0,0,0,0.8);
+    margin-top: 7px;
+    margin-bottom: 7px;
+    margin-right:10px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-shadow: 0 3px rgba(0,0,0,0.4);
+    cursor: pointer;
+}
+.dashButton:hover {
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.95);
+}
+.dashButton:active {
+    background-color: #1b4da1;
+}
+h3 {
+    font-size: 30px;
+}
+label {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+input {
+    background-color: #555;
+    
+}
+.textContainer {
+    background-color: #0b3d91;
+    color: white;
+    box-shadow: 6px 10px rgba(0,0,0,0.2);
+    width: fit-content;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    border-radius: 7px;
+    text-shadow: 0 5px rgba(0,0,0,0.5);
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    text-align: center;
+}
+.centered {
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+.separated {
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+.card {
+    box-shadow: 5px 5px rgba(0,0,0,0.2);
+    border-radius:7px;
+    background-color: #333;
+    padding: 5px;
+}
+.errorMessage {
+    color: red;
+    margin-left: 5px;
+}
+#loginButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+* {
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}

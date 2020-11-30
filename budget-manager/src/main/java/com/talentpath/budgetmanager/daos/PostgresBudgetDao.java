@@ -59,8 +59,13 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public Transaction getTransactionById(Integer transactionId) {
-        throw new UnsupportedOperationException();
+    public Transaction getTransactionById(Integer transactionId) throws BudgetDaoException {
+        try {
+            return template.queryForObject("select * from \"Transactions\" where \"transactionId\" = "+ transactionId +";",new TransactionMapper());
+        }
+        catch (DataAccessException e) {
+            throw new BudgetDaoException("No transaction with id: " + transactionId);
+        }
     }
 
     private class TransactionMapper implements RowMapper<Transaction> {

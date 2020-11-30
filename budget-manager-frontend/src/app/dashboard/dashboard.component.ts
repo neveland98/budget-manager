@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   constructor(private budgetService: BudgetService,private route: ActivatedRoute,private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
+    if(!this.tokenStorage.getUser()) this.router.navigate(['login']);
   }
 
   add(description: string, amount: string, isIncome: boolean,dateString: string): void {
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
     let id = this.tokenStorage.getUser().id;
     description = description.trim();
     if(!description) return;
+    dateString+="T00:00:00";//this is a bit hacky but we don't actually care about the time, and this makes the date correct
     this.budgetService.addTransaction(
       {transactionId: null,
         userId: id,

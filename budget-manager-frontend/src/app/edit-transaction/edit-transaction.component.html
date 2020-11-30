@@ -1,0 +1,23 @@
+<div *ngIf="transaction" class="centered separated card">
+    <form (ngSubmit)="update();">
+        <div class="separated inputs">
+            <label>Date:
+                <input [ngModel]="transaction.date | date:'yyyy-MM-dd'" (ngModelChange)="transaction.date = $event" type="date" name="date"/>
+            </label>
+        </div>
+        <div class="separated inputs">
+            <label>Charge:
+                <input type="checkbox" [ngModel]="transaction.charge" (ngModelChange)="transaction.charge = $event" name="charge"/>
+            </label>
+            <label>Amount:
+                <input type="number" [ngModel]="transaction.amount/100" (ngModelChange)="transaction.amount = $event*100" name="amount" placeholder="amount"/>
+            </label>
+        </div>
+        <div class="separated inputs">
+            <label>Description:
+                <input type="text" [ngModel]="transaction.description" (ngModelChange)="transaction.description = $event" name="description" placeholder="description"/>
+            </label>
+        </div>
+        <button class="dashButton centered">Submit</button>
+    </form>
+</div>

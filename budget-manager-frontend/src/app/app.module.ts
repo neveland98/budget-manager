@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth-inteceptor';
+import { EditTransactionComponent } from './edit-transaction/edit-transaction.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AuthInterceptor } from './auth-inteceptor';
     DashboardComponent,
     TransactionsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    EditTransactionComponent
   ],
   imports: [
     BrowserModule,
