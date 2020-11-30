@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
   constructor(private tokenStorage: TokenStorageService, private auth: AuthorizationService, private router: Router) { }
 
   ngOnInit(): void {
-    if(this.tokenStorage.getUser()) this.loggedIn = true;
+    if(this.tokenStorage.getUser()) this.router.navigate(['dashboard']);
   }
   onSubmit():void{
     this.auth.register(this.registData).subscribe(message=>console.log(message));

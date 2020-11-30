@@ -33,4 +33,8 @@ public class BudgetService {
     public void deleteById(Integer id) throws BudgetDaoException {
         dao.deleteTransactionById(id);
     }
+
+    public Integer updateTransaction(Transaction updated) {
+        return dao.editTransaction(updated);
+    }
 }

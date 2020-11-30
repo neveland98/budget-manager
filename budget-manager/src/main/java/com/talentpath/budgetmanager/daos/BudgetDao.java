@@ -13,4 +13,6 @@ public interface BudgetDao {
     Transaction getTransactionById(Integer transactionId);
 
     void deleteTransactionById(Integer id) throws BudgetDaoException;
+
+    Integer editTransaction(Transaction updated);
 }

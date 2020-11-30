@@ -26,6 +26,9 @@ public class BudgetController {
         return service.addTransaction(toAdd);
     }
 
+    @PutMapping("/transactions")
+    public Integer updateTransaction(@RequestBody Transaction updated) { return service.updateTransaction(updated);}
+
     @DeleteMapping("/transactions/{id}")
     public void deleteTransaction(@PathVariable Integer id) throws BudgetDaoException { service.deleteById(id); }
 

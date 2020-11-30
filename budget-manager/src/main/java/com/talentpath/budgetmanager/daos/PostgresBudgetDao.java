@@ -42,6 +42,13 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
+    public Integer editTransaction(Transaction updated) {
+        return template.queryForObject("update \"Transactions\"\n" +
+                "set charge = '"+ updated.isCharge() +"', description = '"+ updated.getDescription() +"', amount = '"+ updated.getAmount() +"', \"date\" = '"+ new Date(updated.getDate().getTimeInMillis()) +"' " +
+                "where \"transactionId\" = '"+ updated.getTransactionId() +"' returning \"transactionId\";",new IdMapper());
+    }
+
+    @Override
     public void deleteTransactionById(Integer id) throws BudgetDaoException {
         try {
             template.update("DELETE FROM \"Transactions\" WHERE \"transactionId\" = '"+ id +"';");

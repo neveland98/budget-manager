@@ -1,20 +1,24 @@
 <h3><div class="textContainer centered">Login</div></h3>
 <div class= "centered separated card">
-    <div>
-        <div id="inputs" class="separated">
-            <label>Username: 
-                <input type="text" [(ngModel)]="request.username" #username/>
-            </label>    
+    <form (ngSubmit)="login();">
+        <div>
+            <div id="inputs" class="separated">
+                <label>Username: 
+                    <input name="username" type="text" [(ngModel)]="request.username" #username/>
+                </label>    
+            </div>
+            <div id="inputs" class="separated">
+                <label>Password:
+                    <input name="password" type="password" [(ngModel)]="request.password" #password/>
+                </label>
+            </div>
         </div>
-        <div id="inputs" class="separated">
-            <label>Password:
-                <input type="password" [(ngModel)]="request.password" #password/>
-            </label>
+        <div id="loginButtons">
+            <button id="login" class="dashButton">Log in</button>
         </div>
-    </div>
-    <div id="loginButtons">
-        <button id="login" class="dashButton" (click)="login();">Log in</button>
-        <button id="newaccount" class="dashButton" (click)="register();">Create new account</button>
-    </div>
+    </form>
+        <div id="loginButtons">
+            <button id="newaccount" class="dashButton" (click)="register();">Create new account</button>
+        </div>        
     <div id="messages" class="errorMessage" #messages>message</div>
 </div>

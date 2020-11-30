@@ -23,6 +23,11 @@ public class InMemBudgetDao implements BudgetDao{
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public Integer editTransaction(Transaction updated) {
+        throw new UnsupportedOperationException();
+    }
+
     public void reset() {
         allTransactions.clear();
         allUsers.clear();
