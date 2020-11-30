@@ -1,8 +1,8 @@
 <div *ngIf="transaction" class="centered separated card">
-    <form (ngSubmit)="update();">
+    <form (ngSubmit)="update(date.value);">
         <div class="separated inputs">
             <label>Date:
-                <input [ngModel]="transaction.date | date:'yyyy-MM-dd'" (ngModelChange)="transaction.date = $event" type="date" name="date"/>
+                <input [ngModel]="transaction.date | date:'yyyy-MM-dd'" (ngModelChange)="transaction.date = $event" type="date" name="date" #date/>
             </label>
         </div>
         <div class="separated inputs">

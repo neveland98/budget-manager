@@ -22,11 +22,11 @@ export class EditTransactionComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.budgetService.getTransaction(id).subscribe(transaction=>{
       this.transaction = transaction;
-      // this.dateString = transaction.date.toUTCString(); why doesn't this work?
     });
   }
-  update(): void {
-    console.log(this.transaction.amount);
+  update(dateString: string): void {
+    dateString+="T00:00:00";
+    this.transaction.date = new Date(dateString);//this is the hackiest fix i've ever done in my life and I hope I never have to do anything like this again.
     this.budgetService.updateTransaction(this.transaction).subscribe(()=>this.router.navigate(['transactions']));
   }
 }
