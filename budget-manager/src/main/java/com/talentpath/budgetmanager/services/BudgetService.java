@@ -8,6 +8,7 @@ import com.talentpath.budgetmanager.models.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Service
@@ -60,5 +61,9 @@ public class BudgetService {
 
     public void deleteCategoryById(Integer id) {
         dao.deleteCategoryById(id);
+    }
+
+    public BigInteger getRunningTotal(Integer id) {
+        return dao.getRunningTotal(id);
     }
 }

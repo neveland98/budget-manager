@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -34,6 +35,9 @@ public class BudgetController {
     @CrossOrigin
     @GetMapping("/categories/{id}")
     public List<Category> getUserCategories(@PathVariable Integer id) {return service.getUserCategories(id);}
+
+    @GetMapping("/total/{id}")
+    public BigInteger getRunningTotal(@PathVariable Integer id) {return service.getRunningTotal(id);}
 
     //POST
     @PostMapping("/transactions")

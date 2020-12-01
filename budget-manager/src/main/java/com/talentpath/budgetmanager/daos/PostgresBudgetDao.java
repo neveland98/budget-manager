@@ -10,13 +10,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import javax.xml.crypto.Data;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @Component
@@ -29,6 +27,18 @@ public class PostgresBudgetDao implements BudgetDao {
     @Override
     public List<Transaction> getAllTransactions(Integer userId) {
         return template.query("SELECT * FROM \"Transactions\" WHERE \"userId\" = "+ userId +" ORDER BY date ASC;",new TransactionMapper());
+    }
+
+    @Override
+    public BigInteger getRunningTotal(Integer id) {
+        List<BigInteger> totals = template.query("select sum(amount),charge from \"Transactions\" where \"userId\"='"+ id +"'\n" +
+                "group by charge\n" +
+                "order by charge DESC;",new TotalMapper());//order by charge desc, means that charge is first and not charge is second
+        BigInteger toReturn = new BigInteger("0");
+        for(BigInteger number:totals) {
+            toReturn = toReturn.add(number);
+        }
+        return toReturn;
     }
 
     @Override
@@ -146,6 +156,15 @@ public class PostgresBudgetDao implements BudgetDao {
             toReturn.setCategoryName(resultSet.getString("category_name"));
             toReturn.setUser_id(resultSet.getInt("user_id"));
             return toReturn;
+        }
+    }
+    private class TotalMapper implements RowMapper<BigInteger> {
+        @Override
+        public BigInteger mapRow(ResultSet resultSet, int i) throws SQLException {
+            boolean charge = resultSet.getBoolean("charge");
+            BigInteger sum = BigInteger.valueOf(resultSet.getLong("sum"));
+            if(charge) sum = sum.multiply(BigInteger.valueOf(-1L));
+            return sum;
         }
     }
 }

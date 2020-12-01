@@ -11,6 +11,7 @@ import { Category } from '../category';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  balance: number = 0;
   categories: Category[];
   selectedCategory: Category = {
     categoryId: 0,
@@ -24,6 +25,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     if(!this.tokenStorage.getUser()) this.router.navigate(['login']);
     this.getCategories();
+    this.getBalance();
   }
 
   add(description: string, amount: string, isIncome: boolean,dateString: string): void {
@@ -41,7 +43,7 @@ export class DashboardComponent implements OnInit {
         date: new Date(dateString),
         category: this.selectedCategory
       } as Transaction
-      ).subscribe();
+      ).subscribe(_=>this.getBalance());
   }
   signOut() {
     this.tokenStorage.signOut();
@@ -50,5 +52,8 @@ export class DashboardComponent implements OnInit {
 
   getCategories():void {
     this.budgetService.getCategories(this.tokenStorage.getUser().id).subscribe(categories=>this.categories=categories);
+  }
+  getBalance(): void {
+    this.budgetService.getBalance(this.tokenStorage.getUser().id).subscribe(balance=>this.balance=balance/100);
   }
 }

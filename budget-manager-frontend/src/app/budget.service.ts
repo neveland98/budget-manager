@@ -71,6 +71,10 @@ export class BudgetService {
     return this.http.delete<Category>(this.categoryUrl+"/"+categoryId)
     .pipe(tap(_=>console.log(`deleted category with id: ${categoryId}`)),catchError(this.handleError<any>("deleteCategory")));
   }
+  getBalance(userId: number): Observable<number> {
+    return this.http.get<number>("http://localhost:8080/api/total/"+userId)
+    .pipe(tap(_=>console.log('fetched total')),catchError(this.handleError<number>('getBalance',0)));
+  }
 
   constructor(private http: HttpClient) { }
 

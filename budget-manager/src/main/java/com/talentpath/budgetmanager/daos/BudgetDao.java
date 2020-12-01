@@ -4,6 +4,7 @@ import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
 import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public interface BudgetDao {
@@ -21,4 +22,6 @@ public interface BudgetDao {
     Category getCategoryById(Integer categoryId) throws BudgetDaoException;
     Integer editCategory(Category updated) throws BudgetDaoException;
     void deleteCategoryById(Integer categoryId);
+
+    BigInteger getRunningTotal(Integer id);
 }

@@ -14,6 +14,11 @@ import java.util.List;
 @Profile({"servicetesting"})
 public class InMemBudgetDao implements BudgetDao{
     @Override
+    public BigInteger getRunningTotal(Integer id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Category addCategory(Category userCategory) {
         throw new UnsupportedOperationException();
     }
