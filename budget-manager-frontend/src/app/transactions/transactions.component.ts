@@ -16,7 +16,10 @@ export class TransactionsComponent implements OnInit {
   constructor(private budgetService: BudgetService, private route: ActivatedRoute,private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
-    if(!this.tokenStorage.getUser()) this.router.navigate(['login']);
+    if(!this.tokenStorage.getUser()) {
+      this.router.navigate(['login']);
+      return;
+    }
     else this.getTransactions();
   }
 

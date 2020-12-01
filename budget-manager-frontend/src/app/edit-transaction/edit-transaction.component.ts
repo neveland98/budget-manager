@@ -18,6 +18,10 @@ export class EditTransactionComponent implements OnInit {
   constructor(private budgetService: BudgetService, private router:Router, private tokenStorage:TokenStorageService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if(!this.tokenStorage.getUser()) {
+      this.router.navigate(['login']);
+      return;
+    }
     this.getTransaction();
     this.getCategories();
   }
@@ -28,8 +32,10 @@ export class EditTransactionComponent implements OnInit {
     });
   }
   update(dateString: string): void {
+    let blank = new RegExp('^\\s*$');
+    if(blank.test(dateString)||blank.test(this.transaction.description)) return;
     dateString+="T00:00:00";
-    this.transaction.date = new Date(dateString);//this is the hackiest fix i've ever done in my life and I hope I never have to do anything like this again.
+    this.transaction.date = new Date(dateString);
     this.budgetService.updateTransaction(this.transaction).subscribe(()=>this.router.navigate(['transactions']));
   }
   getCategories():void {

@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     username: "",
     password: ""
   }
+  errorMessage: string = "";
   constructor(private auth: AuthorizationService, private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
@@ -36,6 +37,11 @@ export class LoginComponent implements OnInit {
   register() {
     this.router.navigate(['register']);
   }
-
+  log(message: string) {
+    this.errorMessage = message;
+  }
+  clearMessages() {
+    this.errorMessage = "";
+  }
 }
 

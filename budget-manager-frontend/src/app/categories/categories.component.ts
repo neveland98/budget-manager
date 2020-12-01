@@ -15,13 +15,19 @@ export class CategoriesComponent implements OnInit {
   newCategory: Category = {
     categoryId: null,
     categoryName: "",
-    user_id: this.tokenStorage.getUser().id
+    user_id: this.tokenStorage.getUser()?this.tokenStorage.getUser().id:0
   }
   ngOnInit(): void {
+    if(!this.tokenStorage.getUser()) {
+      this.router.navigate(['login']);
+      return;
+    }
     this.getCategories();
     
   }
   createNewCategory():void {
+    if(new RegExp('^\\s*$').test(this.newCategory.categoryName)) return;
+    else this.newCategory.categoryName=this.newCategory.categoryName.trim();
     this.budgetService.createNewCategory(this.newCategory).subscribe(newCategory=>{
       this.categories.push(newCategory);
       this.newCategory.categoryName = "";

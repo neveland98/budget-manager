@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { relative } from 'path';
+import { allowedNodeEnvironmentFlags } from 'process';
 import { BudgetService } from '../budget.service';
 import { Category } from '../category';
 import { TokenStorageService } from '../token-storage.service';
@@ -14,14 +16,21 @@ export class EditCategoryComponent implements OnInit {
   constructor(private budgetService: BudgetService, private router:Router, private tokenStorage:TokenStorageService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if(!this.tokenStorage.getUser()) {
+      this.router.navigate(['login']);
+      return;
+    }
     this.getCategory();
   }
   getCategory():void{
     const id = +this.route.snapshot.paramMap.get('id');
-    this.budgetService.getCategory(id).subscribe(category=>this.category=category);
+    this.budgetService.getCategory(id).subscribe(category=>{
+      this.category=category;
+    });
   }
   update():void {
-    this.budgetService.updateCategory(this.category).subscribe();
-    this.router.navigate(['categories']);
+    if(new RegExp('^\\s*$').test(this.category.categoryName)) return;
+    else console.log(this.category.categoryName);
+    this.budgetService.updateCategory(this.category).subscribe(_=>this.router.navigate(['categories']));
   }
 }

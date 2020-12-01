@@ -16,19 +16,32 @@ export class DashboardComponent implements OnInit {
   selectedCategory: Category = {
     categoryId: 0,
     categoryName: "",
-    user_id: this.tokenStorage.getUser().id
+    user_id: this.tokenStorage.getUser()?this.tokenStorage.getUser().id:0
   }
   //id: number;
   private sub: any;//todo: figure out if this does anything
   constructor(private budgetService: BudgetService,private route: ActivatedRoute,private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
-    if(!this.tokenStorage.getUser()) this.router.navigate(['login']);
+    if(!this.tokenStorage.getUser()) {
+      this.router.navigate(['login']);
+      console.log("something");
+      return;
+    }
     this.getCategories();
     this.getBalance();
   }
 
   add(description: string, amount: string, isIncome: boolean,dateString: string): void {
+    //note: we could refactor this to make it take 0 arguments and use a
+    //form with ngModel instead, but this works better because all
+    //of the inputs return string parameters but typescript seems to think they are 
+    //object types still
+    //blank checks
+    if(dateString==""||description==""||amount==""||this.selectedCategory.categoryId==0) {
+      console.log("blank parameters");
+      return;
+    }
     let newAmount: number = Math.floor(Number.parseFloat(amount)*100);
     let id = this.tokenStorage.getUser().id;
     description = description.trim();

@@ -46,9 +46,6 @@ export class BudgetService {
       catchError(this.handleError<Transaction>('deleteTransaction'))
     );
   }
-  login(username: string, password: string): void {
-    console.log(username + " " + password);
-  }
 
   createNewCategory(toAdd: Category): Observable<Category> {
     return this.http.post<Category>(this.categoriesUrl,toAdd,this.httpOptions)

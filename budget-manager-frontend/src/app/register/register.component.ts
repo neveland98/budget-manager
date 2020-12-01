@@ -23,7 +23,10 @@ export class RegisterComponent implements OnInit {
     if(this.tokenStorage.getUser()) this.router.navigate(['dashboard']);
   }
   onSubmit():void{
-    if(this.confirmPassword !== this.registData.password) return;
+    if(this.confirmPassword !== this.registData.password){
+      alert("Passwords do not match!");
+      return;
+    }
     this.auth.register(this.registData).subscribe(message=>console.log(message));
     this.router.navigate(['login']);
   }
