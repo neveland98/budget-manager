@@ -39,6 +39,8 @@ public class BudgetController {
     @GetMapping("/total/{id}")
     public BigInteger getRunningTotal(@PathVariable Integer id) {return service.getRunningTotal(id);}
 
+    @GetMapping("/monthly/{id}")
+    public BigInteger getMonthlyTotal(@PathVariable Integer id) {return service.getMonthlyTotal(id);}
     //POST
     @PostMapping("/transactions")
     public Integer addTransaction(@RequestBody Transaction toAdd) {

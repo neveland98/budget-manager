@@ -24,4 +24,6 @@ public interface BudgetDao {
     void deleteCategoryById(Integer categoryId);
 
     BigInteger getRunningTotal(Integer id);
+
+    BigInteger getMonthlyTotal(Integer id, String toString);
 }

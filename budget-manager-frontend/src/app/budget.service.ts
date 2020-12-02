@@ -72,7 +72,10 @@ export class BudgetService {
     return this.http.get<number>("http://localhost:8080/api/total/"+userId)
     .pipe(tap(_=>console.log('fetched total')),catchError(this.handleError<number>('getBalance',0)));
   }
-
+  getMonthly(userId: number):Observable<number> {
+    return this.http.get<number>("http://localhost:8080/api/monthly/" + userId)
+    .pipe(tap(_=>console.log('fetched monthly total')),catchError(this.handleError<number>('getMonthly',0)));
+  }
   constructor(private http: HttpClient) { }
 
   private handleError<T>(operation = 'operation', result?: T) {

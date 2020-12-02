@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -65,5 +66,11 @@ public class BudgetService {
 
     public BigInteger getRunningTotal(Integer id) {
         return dao.getRunningTotal(id);
+    }
+
+    public BigInteger getMonthlyTotal(Integer id) {
+        Calendar now = Calendar.getInstance();
+        java.sql.Date date = new java.sql.Date(now.getTimeInMillis());
+        return dao.getMonthlyTotal(id,date.toString());
     }
 }

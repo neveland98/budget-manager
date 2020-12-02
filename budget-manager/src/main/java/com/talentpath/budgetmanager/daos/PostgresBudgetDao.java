@@ -116,6 +116,21 @@ public class PostgresBudgetDao implements BudgetDao {
         template.update("DELETE FROM categories WHERE category_id = "+ categoryId +";");
     }
 
+    @Override
+    public BigInteger getMonthlyTotal(Integer id, String dateString) {//java.sql.Date don't do me wrong lol
+        List<BigInteger> totals = template.query(
+                "select sum(amount),\"charge\" " +
+                        "from \"Transactions\" " +
+                        "where \"userId\" = "+ id +" and EXTRACT(MONTH from date) = '"+ dateString.substring(5,7) +"' and EXTRACT(YEAR from date) = '"+ dateString.substring(0,4) +"'\n" +
+                        "group by \"charge\"\n" +
+                        "order by \"charge\" DESC;",new TotalMapper());
+        BigInteger toReturn = new BigInteger("0");
+        for(BigInteger number:totals) {
+            toReturn = toReturn.add(number);
+        }
+        return toReturn;
+    }
+
     private class TransactionMapper implements RowMapper<Transaction> {
         @Override
         public Transaction mapRow(ResultSet resultSet, int i) throws SQLException {
