@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { relative } from 'path';
-import { allowedNodeEnvironmentFlags } from 'process';
 import { BudgetService } from '../budget.service';
 import { Category } from '../category';
 import { TokenStorageService } from '../token-storage.service';
