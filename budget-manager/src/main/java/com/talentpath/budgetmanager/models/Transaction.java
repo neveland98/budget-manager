@@ -14,9 +14,20 @@ public class Transaction {
     Calendar date;
     Category category;
 
+    /**
+     * Create a new Transaction with null parameters.
+     */
     public Transaction() {}
 
-    //for testing only
+    /**
+     * Create a new Transaction with pre-defined parameters. This should only be used for testing purposes.
+     * @param userId userId for the associeated User.
+     * @param amount Amount for the transaction (cents, as a BigInteger).
+     * @param charge True if transaction is a debit, false if transaction is a credit.
+     * @param description String transaction description.
+     * @param date Date the transaction took place (As a java.util.Calendar)
+     * @param category Category the transaction is associated with.
+     */
     public Transaction(Integer userId, BigInteger amount, boolean charge, String description, Calendar date, Category category) {
         this.transactionId = 0;
         this.userId = userId;
