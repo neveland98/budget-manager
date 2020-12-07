@@ -30,7 +30,8 @@ label {
 }
 input {
     background-color: #555;
-    
+    border-radius: 5px;
+    border: none;
 }
 .textContainer {
     background-color: #0b3d91;

@@ -27,10 +27,6 @@ label {
     padding-left: 5px;
     padding-right: 5px;
 }
-input {
-    background-color: #555;
-    
-}
 .textContainer {
     background-color: #0b3d91;
     color: white;
@@ -68,10 +64,16 @@ input {
     align-items: center;
     justify-content: center;
 }
+input {
+    background-color: #555;
+    border-radius: 5px;
+    border: none;
+}
 #inputs {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 300px;
 }
 * {
     color: #ffffff;
