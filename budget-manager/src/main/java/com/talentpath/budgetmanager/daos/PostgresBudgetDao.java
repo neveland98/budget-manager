@@ -25,6 +25,15 @@ public class PostgresBudgetDao implements BudgetDao {
     private JdbcTemplate template;
 
     @Override
+    public void reset() {
+        template.update("TRUNCATE public.\"Transactions\", public.\"categories\", public.\"user_roles\", public.\"users\" RESTART IDENTITY;");
+        template.update("ALTER SEQUENCE public.\"Transactions_transactionId_seq\" RESTART;\n" +
+                "ALTER SEQUENCE public.\"categories_category_id_seq\" RESTART;\n" +
+                "ALTER SEQUENCE public.\"users_user_id_seq\" RESTART;");
+    }
+
+
+    @Override
     public List<Transaction> getAllTransactions(Integer userId) {
         return template.query("SELECT * FROM \"Transactions\" WHERE \"userId\" = "+ userId +" ORDER BY date ASC;",new TransactionMapper());
     }
@@ -141,8 +150,10 @@ public class PostgresBudgetDao implements BudgetDao {
             toReturn.setAmount(BigInteger.valueOf(resultSet.getLong("amount")));
             toReturn.setDescription(resultSet.getString("description"));
             Date date = resultSet.getDate("date");
+            //System.out.println("SQL get date ms time: " + date.getTime());
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
+            //System.out.println("Calendar get date ms time: " + calendar.getTimeInMillis());
             toReturn.setDate(calendar);
             toReturn.setCategory(template.queryForObject("select * from categories where category_id = '"+ resultSet.getInt("associated_category_id") +"';",new CategoryMapper()));
             return toReturn;

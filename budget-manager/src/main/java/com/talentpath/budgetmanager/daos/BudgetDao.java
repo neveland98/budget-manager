@@ -10,12 +10,18 @@ import java.util.List;
 public interface BudgetDao {
     List<Transaction> getAllTransactions(Integer id);
 
+    /**
+     * Adds a new Transaction to the database.
+     * @param userTransaction transaction to add.
+     * @return Integer transaction id of the newly added Transaction.
+     */
     Integer addTransaction(Transaction userTransaction);
 
     Transaction getTransactionById(Integer transactionId) throws BudgetDaoException;
 
     void deleteTransactionById(Integer id) throws BudgetDaoException;
 
+    void reset();
     Integer editTransaction(Transaction updated);
 
     Category addCategory(Category userCategory) throws BudgetDaoException;

@@ -15,6 +15,17 @@ public class Transaction {
 
     public Transaction() {}
 
+    //for testing only
+    public Transaction(Integer userId, BigInteger amount, boolean charge, String description, Calendar date, Category category) {
+        this.transactionId = 0;
+        this.userId = userId;
+        this.amount = amount;
+        this.charge = charge;
+        this.description = description;
+        this.date = date;
+        this.category = category;
+    }
+
     public Category getCategory() {
         return category;
     }

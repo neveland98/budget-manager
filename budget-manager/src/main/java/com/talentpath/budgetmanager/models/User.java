@@ -1,6 +1,7 @@
 package com.talentpath.budgetmanager.models;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -30,11 +31,6 @@ public class User {
     private String password;
 
     public User() {}
-//    public User(User toCopy) {
-//        this.userId = toCopy.userId;
-//        this.username = toCopy.username;
-//        this.password = toCopy.password;
-//    }
     public User(
             @NotBlank @Size(max=20) String username,
             @NotBlank @Size(max = 50) String email,
