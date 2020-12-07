@@ -49,16 +49,7 @@ class PostgresBudgetDaoTest {
             Transaction toAdd = new Transaction(1, BigInteger.valueOf(500L),true,"test transaction", calendar ,testCategory);
             Integer id = dao.addTransaction(toAdd);
             Transaction toTest = dao.getTransactionById(id);
-            assertEquals(toAdd.getAmount(),toTest.getAmount());
-            assertEquals(toAdd.getCategory(),toTest.getCategory());
-//            assertEquals(toAdd.getDate(),toTest.getDate()); we actually don't need to do this because we don't care about the actual millisecond time value (if we did, we would store that value as a long in the database, rather than a date value)
-            //instead, we want to compare the month, day, year value
-            assertEquals(toAdd.getDate().get(Calendar.YEAR),toTest.getDate().get(Calendar.YEAR));
-            assertEquals(toAdd.getDate().get(Calendar.MONTH),toTest.getDate().get(Calendar.MONTH));
-            assertEquals(toAdd.getDate().get(Calendar.DATE),toTest.getDate().get(Calendar.DATE));
-            assertEquals(toAdd.getDescription(),toTest.getDescription());
-            assertEquals(toAdd.getUserId(),toTest.getUserId());
-            assertEquals(toAdd.isCharge(),toTest.isCharge());
+            assertEquals(toAdd,toTest);
         }
         catch(Exception e) {
             fail("exception caught on golden path: " + e.getMessage());
@@ -69,11 +60,41 @@ class PostgresBudgetDaoTest {
 
     @Test
     void getAllTransactions() {
-        //aaa
+        try {
+            Category category1 = new Category(1,"general",1);
+            Category category2 = new Category(2, "food", 1);
+            Category category3 = new Category(3, "misc", 1);
+            Calendar calendar = Calendar.getInstance();
+
+            Transaction transaction1 = new Transaction(1,BigInteger.valueOf(1000L),true,"generic",calendar,category1),
+                    transaction2 = new Transaction(1,BigInteger.valueOf(4000L),true,"groceries",calendar,category2),
+                    transaction3 = new Transaction(1,BigInteger.valueOf(200L),true,"gum",calendar,category3);
+
+            dao.addCategory(category1);
+            dao.addCategory(category2);
+            dao.addCategory(category3);
+
+            dao.addTransaction(transaction1);
+            dao.addTransaction(transaction2);
+            dao.addTransaction(transaction3);
+
+            Transaction get1 = dao.getTransactionById(1),
+                    get2 = dao.getTransactionById(2),
+                    get3 = dao.getTransactionById(3);
+
+            assertEquals(transaction1,get1);
+            assertEquals(transaction2,get2);
+            assertEquals(transaction3,get3);
+
+        }
+        catch(Exception e) {
+            fail("Exception caught on golden path test: " + e.getMessage());
+        }
     }
 
     @Test
     void getRunningTotal() {
+
     }
 
 

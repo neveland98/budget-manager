@@ -3,6 +3,7 @@ package com.talentpath.budgetmanager.models;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class Transaction {
     Integer transactionId;
@@ -89,5 +90,28 @@ public class Transaction {
 
     public void setDate(Calendar date) {
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return true;
+        else if(obj == null || getClass() != obj.getClass()) return false;
+
+        Transaction that = (Transaction) obj;
+
+        //note: we don't compare values that are determined by the database, such as transaction id and category id, because we may put in a default value in a unit test or something and we would erroneously get false for .equals in that case
+        if(!Objects.equals(userId,that.userId)) return false;
+        else if(!Objects.equals(amount,that.amount)) return false;
+        else if(!Objects.equals(charge,that.charge)) return false;
+        else if(!Objects.equals(description,that.description)) return false;
+
+        else if(!Objects.equals(this.date.get(Calendar.YEAR),that.date.get(Calendar.YEAR))) return false;
+        else if(!Objects.equals(this.date.get(Calendar.MONTH),that.date.get(Calendar.MONTH))) return false;
+        else if(!Objects.equals(this.date.get(Calendar.DATE),that.date.get(Calendar.DATE))) return false;
+
+        else if(!Objects.equals(this.category.getCategoryName(),that.category.getCategoryName())) return false;
+        else if(!Objects.equals(this.category.getUser_id(),that.category.getUser_id())) return false;
+
+        else return true;
     }
 }
