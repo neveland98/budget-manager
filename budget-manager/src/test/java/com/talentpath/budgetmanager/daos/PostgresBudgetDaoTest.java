@@ -94,12 +94,57 @@ class PostgresBudgetDaoTest {
 
     @Test
     void getRunningTotal() {
+        try {
+            Category general = new Category(1, "general", 1);
+            dao.addCategory(general);
+            Calendar calendar = Calendar.getInstance();
 
+            Transaction toAdd = new Transaction(1, BigInteger.valueOf(1000L), true, "test", calendar, general);
+            Transaction toAdd2 = new Transaction(1, BigInteger.valueOf(20000L), false, "income", calendar, general);
+            Transaction toAdd3 = new Transaction(1, BigInteger.valueOf(3535L), true, "weird", calendar, general);
+
+            dao.addTransaction(toAdd);
+            dao.addTransaction(toAdd2);
+            dao.addTransaction(toAdd3);
+
+            BigInteger total = dao.getRunningTotal(1);
+            assertEquals(15465L,total.longValue());
+
+        }
+        catch(Exception e) {
+            fail("Exception caught on golden path: " + e.getMessage());
+        }
     }
 
 
     @Test
     void editTransaction() {
+        try {
+            Category general = new Category(1, "general", 1);
+            dao.addCategory(general);
+            Calendar calendar = Calendar.getInstance();
+
+            Transaction toAdd = new Transaction(1, BigInteger.valueOf(1000L), true, "test", calendar, general);
+            Transaction toAdd2 = new Transaction(1, BigInteger.valueOf(20000L), false, "income", calendar, general);
+            Transaction toAdd3 = new Transaction(1, BigInteger.valueOf(3535L), true, "weird", calendar, general);
+
+            dao.addTransaction(toAdd);
+            dao.addTransaction(toAdd2);
+            dao.addTransaction(toAdd3);
+
+            toAdd3.setTransactionId(3);//no id was set before, edit transaction method needs the id to be set which it usually is because it will get the transaction before letting you edit it
+            toAdd3.setDescription("edited");
+            toAdd3.setAmount(BigInteger.valueOf(12000L));
+
+            dao.editTransaction(toAdd3);
+
+            Transaction toTest = dao.getTransactionById(3);
+
+            assertEquals(toAdd3,toTest);
+        }
+        catch(Exception e) {
+            fail("Exception caught on golden path: " + e.getMessage());
+        }
     }
 
     @Test
