@@ -1,5 +1,7 @@
 package com.talentpath.budgetmanager.daos;
 
+import com.talentpath.budgetmanager.exceptions.NullArgumentException;
+import com.talentpath.budgetmanager.exceptions.NullParameterException;
 import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 import com.talentpath.budgetmanager.models.User;
@@ -57,6 +59,35 @@ class PostgresBudgetDaoTest {
         }
 
 
+    }
+
+    @Test
+    void addTransactionNullTransaction() {
+        try {
+            dao.addTransaction(null);
+            fail("No exception caught.");
+        }
+        catch(NullArgumentException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void addTransactionNullParameter() {
+        try {
+            Transaction transaction = new Transaction(1,null,true,"haha",null,null);
+            dao.addTransaction(transaction);
+            fail("No exception caught.");
+        }
+        catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
     }
 
     @Test

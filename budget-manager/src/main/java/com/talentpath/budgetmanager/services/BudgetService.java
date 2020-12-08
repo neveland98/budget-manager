@@ -3,6 +3,8 @@ package com.talentpath.budgetmanager.services;
 import com.talentpath.budgetmanager.daos.BudgetDao;
 import com.talentpath.budgetmanager.daos.CategoryRepository;
 import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
+import com.talentpath.budgetmanager.exceptions.NullArgumentException;
+import com.talentpath.budgetmanager.exceptions.NullParameterException;
 import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class BudgetService {
     @Autowired
     public BudgetService(BudgetDao dao) {this.dao = dao;}
 
-    public List<Transaction> makeTransaction(Transaction userTransaction) {
+    public List<Transaction> makeTransaction(Transaction userTransaction) throws NullArgumentException, NullParameterException {
         dao.addTransaction(userTransaction);
         return dao.getAllTransactions(userTransaction.getUserId());
     }
@@ -32,7 +34,7 @@ public class BudgetService {
         return dao.getTransactionById(transactionId);
     }
 
-    public Integer addTransaction(Transaction toAdd) {
+    public Integer addTransaction(Transaction toAdd) throws NullArgumentException, NullParameterException {
         return dao.addTransaction(toAdd);
     }
 

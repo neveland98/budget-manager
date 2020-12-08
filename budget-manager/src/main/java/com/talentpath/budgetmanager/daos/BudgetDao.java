@@ -1,6 +1,8 @@
 package com.talentpath.budgetmanager.daos;
 
 import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
+import com.talentpath.budgetmanager.exceptions.NullArgumentException;
+import com.talentpath.budgetmanager.exceptions.NullParameterException;
 import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 
@@ -20,7 +22,7 @@ public interface BudgetDao {
      * @param userTransaction transaction to add.
      * @return Integer transaction id of the newly added Transaction.
      */
-    Integer addTransaction(Transaction userTransaction);
+    Integer addTransaction(Transaction userTransaction) throws NullArgumentException, NullParameterException;
 
     /**
      * Gets a Transaction from the database with matching transactionId.

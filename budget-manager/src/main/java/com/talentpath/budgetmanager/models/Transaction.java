@@ -24,6 +24,7 @@ public class Transaction {
 
     /**
      * Create a new Transaction with pre-defined parameters. This should only be used for testing purposes.
+     * Note that this constructor does not check for invalid or null parameters. Please don't use this in any actual code.
      * @param userId userId for the associeated User.
      * @param amount Amount for the transaction (cents, as a BigInteger).
      * @param charge True if transaction is a debit, false if transaction is a credit.

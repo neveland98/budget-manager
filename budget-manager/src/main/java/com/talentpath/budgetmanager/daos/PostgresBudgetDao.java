@@ -1,6 +1,8 @@
 package com.talentpath.budgetmanager.daos;
 
 import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
+import com.talentpath.budgetmanager.exceptions.NullArgumentException;
+import com.talentpath.budgetmanager.exceptions.NullParameterException;
 import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,11 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public Integer addTransaction(Transaction userTransaction) {
+    public Integer addTransaction(Transaction userTransaction) throws NullArgumentException, NullParameterException {
+        if(userTransaction == null) throw new NullArgumentException("Null userTransaction passed to addTransaction in PostgresBudgetDao");
+        else if(userTransaction.getUserId()==null||userTransaction.getAmount()==null||userTransaction.getCategory()==null||userTransaction.getDescription()==null||userTransaction.getDate()==null)
+            throw new NullParameterException("One or more parameters in userTransaction passed to addTransaction in PostgresBudgetDao is null.");
+
         return template.queryForObject("insert into \"Transactions\" " +
                 "(\"amount\",\"userId\",\"charge\",\"description\",\"date\",\"associated_category_id\") " +
                 "values ('"+ userTransaction.getAmount() +"','"+
