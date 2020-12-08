@@ -40,7 +40,7 @@ public class BudgetController {
     public List<Category> getUserCategories(@PathVariable Integer id) {return service.getUserCategories(id);}
 
     @GetMapping("/total/{id}")
-    public BigInteger getRunningTotal(@PathVariable Integer id) {return service.getRunningTotal(id);}
+    public BigInteger getRunningTotal(@PathVariable Integer id) throws NullArgumentException {return service.getRunningTotal(id);}
 
     @GetMapping("/monthly/{id}")
     public BigInteger getMonthlyTotal(@PathVariable Integer id) {return service.getMonthlyTotal(id);}
@@ -53,7 +53,7 @@ public class BudgetController {
     public Category addCategory(@RequestBody Category toAdd) throws BudgetDaoException {return service.addCategory(toAdd);}
     //PUT
     @PutMapping("/transactions")
-    public Integer updateTransaction(@RequestBody Transaction updated) { return service.updateTransaction(updated);}
+    public Integer updateTransaction(@RequestBody Transaction updated) throws NullArgumentException, NullParameterException { return service.updateTransaction(updated);}
 
     @PutMapping("/categories")
     public Integer updateCategory(@RequestBody Category updated) throws BudgetDaoException {return service.updateCategory(updated);}

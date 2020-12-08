@@ -44,7 +44,8 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public BigInteger getRunningTotal(Integer userId) {
+    public BigInteger getRunningTotal(Integer userId) throws NullArgumentException {
+        if(userId == null) throw new NullArgumentException("Null userId parameter passed to getRunningTotal in PostgresBudgetDao.");
         List<BigInteger> totals = template.query("select sum(amount),charge from \"Transactions\" where \"userId\"='"+ userId +"'\n" +
                 "group by charge\n" +
                 "order by charge DESC;",new TotalMapper());//order by charge desc, means that charge is first and not charge is second
@@ -73,7 +74,10 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public Integer editTransaction(Transaction updated) {
+    public Integer editTransaction(Transaction updated) throws NullArgumentException, NullParameterException {
+        if(updated == null) throw new NullArgumentException("Null updated transaction parameter passed to editTransaction in PostgresBudgetDao.");
+        else if(updated.getUserId()==null||updated.getAmount()==null||updated.getDescription()==null||updated.getCategory()==null||updated.getDate()==null)
+            throw new NullParameterException("One or more parameters in Transaction passed to editTransaction in PostgresBudgetDao is null.");
         return template.queryForObject("update \"Transactions\"\n" +
                 "set charge = '"+ updated.isCharge() +"', " +
                 "description = '"+ updated.getDescription() +"', " +

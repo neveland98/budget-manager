@@ -43,7 +43,7 @@ public class BudgetService {
         dao.deleteTransactionById(id);
     }
 
-    public Integer updateTransaction(Transaction updated) {
+    public Integer updateTransaction(Transaction updated) throws NullArgumentException, NullParameterException {
         return dao.editTransaction(updated);
     }
 
@@ -67,7 +67,7 @@ public class BudgetService {
         dao.deleteCategoryById(id);
     }
 
-    public BigInteger getRunningTotal(Integer id) {
+    public BigInteger getRunningTotal(Integer id) throws NullArgumentException {
         return dao.getRunningTotal(id);
     }
 

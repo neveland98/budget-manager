@@ -66,6 +66,7 @@ class PostgresBudgetDaoTest {
     void addTransactionNullTransaction() {
         try {
             dao.addTransaction(null);
+
             fail("No exception caught.");
         }
         catch(NullArgumentException e) {
@@ -77,7 +78,7 @@ class PostgresBudgetDaoTest {
     }
 
     @Test
-    void addTransactionNullParameter() {
+    void addTransactionNullParameter() {//todo:add unit tests for every parameter being null, as well as transactions having the empty string as the description or amounts less than 0.
         try {
             Transaction transaction = new Transaction(1,null,true,"haha",null,null);
             dao.addTransaction(transaction);
@@ -163,6 +164,19 @@ class PostgresBudgetDaoTest {
         }
     }
 
+    @Test
+    void getRunningTotalNullId() {
+        try {
+            dao.getRunningTotal(null);
+            fail("No exception thrown.");
+        }
+        catch(NullArgumentException e) {
+            //pass
+        }
+        catch (Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
 
     @Test
     void editTransaction() {
@@ -195,12 +209,100 @@ class PostgresBudgetDaoTest {
     }
 
     @Test
+    void editTransactionNullTransaction() {
+        try {
+            dao.editTransaction(null);
+            fail("No exception thrown.");
+        }
+        catch(NullArgumentException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void editTransactionNullUserId() {
+        try {
+            Transaction transaction = new Transaction(null,BigInteger.valueOf(100L),true,"description",Calendar.getInstance(),new Category(1,"name",1));
+            dao.editTransaction(transaction);
+            fail("No exception thrown.");
+        }
+        catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void editTransactionNullAmount() {
+        try {
+            Transaction transaction = new Transaction(1,null,true,"description",Calendar.getInstance(),new Category(1,"name",1));
+            dao.editTransaction(transaction);
+            fail("No exception thrown.");
+        }
+        catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void editTransactionNullDescription() {
+        try {
+            Transaction transaction = new Transaction(1,BigInteger.valueOf(100L),true,null,Calendar.getInstance(),new Category(1,"name",1));
+            dao.editTransaction(transaction);
+            fail("No exception thrown.");
+        }
+        catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void editTransactionNullDate() {
+        try {
+            Transaction transaction = new Transaction(1,BigInteger.valueOf(100L),true,"description",null,new Category(1,"name",1));
+            dao.editTransaction(transaction);
+            fail("No exception thrown.");
+        }
+        catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void editTransactionNullCategory() {
+        try {
+            Transaction transaction = new Transaction(1,BigInteger.valueOf(100L),true,"description",Calendar.getInstance(),null);
+            dao.editTransaction(transaction);
+            fail("No exception thrown.");
+        }
+        catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
     void deleteTransactionById() {
         try {
             Category general = new Category(1, "general", 1);
             dao.addCategory(general);
             Calendar calendar = Calendar.getInstance();
-
             Transaction toAdd = new Transaction(1, BigInteger.valueOf(1000L), true, "test", calendar, general);
             Transaction toAdd2 = new Transaction(1, BigInteger.valueOf(20000L), false, "income", calendar, general);
             Transaction toAdd3 = new Transaction(1, BigInteger.valueOf(3535L), true, "weird", calendar, general);

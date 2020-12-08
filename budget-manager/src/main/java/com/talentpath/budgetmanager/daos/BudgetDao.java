@@ -50,7 +50,7 @@ public interface BudgetDao {
      * @param updated Updated Transaction with values used to overwrite the values for the existing Transaction.
      * @return TransactionId of the updated Transaction.
      */
-    Integer editTransaction(Transaction updated);
+    Integer editTransaction(Transaction updated) throws NullArgumentException, NullParameterException;
 
     /**
      * Adds given Category to the database.
@@ -85,7 +85,7 @@ public interface BudgetDao {
      * @param userId UserId associated with Transactions to sum.
      * @return java.math.BigInteger sum of all Transactions with associated userId.
      */
-    BigInteger getRunningTotal(Integer userId);
+    BigInteger getRunningTotal(Integer userId) throws NullArgumentException;
 
     /**
      * Gets running total of all transactions for the month of passed date parameter from the database.
