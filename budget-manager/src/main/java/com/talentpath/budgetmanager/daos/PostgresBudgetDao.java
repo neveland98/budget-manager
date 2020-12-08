@@ -39,8 +39,8 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public BigInteger getRunningTotal(Integer id) {
-        List<BigInteger> totals = template.query("select sum(amount),charge from \"Transactions\" where \"userId\"='"+ id +"'\n" +
+    public BigInteger getRunningTotal(Integer userId) {
+        List<BigInteger> totals = template.query("select sum(amount),charge from \"Transactions\" where \"userId\"='"+ userId +"'\n" +
                 "group by charge\n" +
                 "order by charge DESC;",new TotalMapper());//order by charge desc, means that charge is first and not charge is second
         BigInteger toReturn = new BigInteger("0");
@@ -75,12 +75,12 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public void deleteTransactionById(Integer id) throws BudgetDaoException {
+    public void deleteTransactionById(Integer transactionId) throws BudgetDaoException {
         try {
-            template.update("DELETE FROM \"Transactions\" WHERE \"transactionId\" = '"+ id +"';");
+            template.update("DELETE FROM \"Transactions\" WHERE \"transactionId\" = '"+ transactionId +"';");
         }
         catch(DataAccessException e) {
-            throw new BudgetDaoException("No transaction with id: " + id);
+            throw new BudgetDaoException("No transaction with id: " + transactionId);
         }
     }
 
@@ -95,9 +95,10 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public Category addCategory(Category userCategory) throws BudgetDaoException {
+    public Category addCategory(Category userCategory) {
         Integer id = template.queryForObject("insert into \"categories\" (\"category_name\",\"user_id\",\"associated_user_user_id\") values ('"+ userCategory.getCategoryName() +"','"+ userCategory.getUser_id() +"','"+ userCategory.getUser_id() +"') returning category_id;",new CategoryIdMapper());
-        return getCategoryById(id);
+        userCategory.setCategoryId(id);
+        return userCategory;
     }
 
     @Override
@@ -111,13 +112,8 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public Integer editCategory(Category updated) throws BudgetDaoException {
-        try {
+    public Integer editCategory(Category updated) {
             return template.queryForObject("update categories set category_name='"+ updated.getCategoryName() +"' where category_id = '"+ updated.getCategoryId() +"' returning category_id;",new CategoryIdMapper());
-        }
-        catch (DataAccessException e) {
-            throw new BudgetDaoException("No category with id: " + updated.getCategoryId());
-        }
     }
 
     @Override
@@ -126,11 +122,11 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public BigInteger getMonthlyTotal(Integer id, String dateString) {//java.sql.Date don't do me wrong lol
+    public BigInteger getMonthlyTotal(Integer userId, String dateString) {//java.sql.Date don't do me wrong lol
         List<BigInteger> totals = template.query(
                 "select sum(amount),\"charge\" " +
                         "from \"Transactions\" " +
-                        "where \"userId\" = "+ id +" and EXTRACT(MONTH from date) = '"+ dateString.substring(5,7) +"' and EXTRACT(YEAR from date) = '"+ dateString.substring(0,4) +"'\n" +
+                        "where \"userId\" = "+ userId +" and EXTRACT(MONTH from date) = '"+ dateString.substring(5,7) +"' and EXTRACT(YEAR from date) = '"+ dateString.substring(0,4) +"'\n" +
                         "group by \"charge\"\n" +
                         "order by \"charge\" DESC;",new TotalMapper());
         BigInteger toReturn = new BigInteger("0");

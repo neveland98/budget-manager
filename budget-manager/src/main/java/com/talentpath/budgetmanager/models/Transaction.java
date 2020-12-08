@@ -5,6 +5,9 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.Objects;
 
+/**
+ * This class represents a Transaction.
+ */
 public class Transaction {
     Integer transactionId;
     Integer userId;

@@ -14,7 +14,7 @@ import java.util.List;
 @Profile({"servicetesting"})
 public class InMemBudgetDao implements BudgetDao{
     @Override
-    public BigInteger getRunningTotal(Integer id) {
+    public BigInteger getRunningTotal(Integer userId) {
         throw new UnsupportedOperationException();
     }
 
@@ -45,7 +45,7 @@ public class InMemBudgetDao implements BudgetDao{
     public InMemBudgetDao() {reset();}
 
     @Override
-    public void deleteTransactionById(Integer id) {
+    public void deleteTransactionById(Integer transactionId) {
         throw new UnsupportedOperationException();
     }
 
@@ -55,7 +55,7 @@ public class InMemBudgetDao implements BudgetDao{
     }
 
     @Override
-    public BigInteger getMonthlyTotal(Integer id, String toString) {
+    public BigInteger getMonthlyTotal(Integer userId, String dateString) {
         throw new UnsupportedOperationException();
     }
 
