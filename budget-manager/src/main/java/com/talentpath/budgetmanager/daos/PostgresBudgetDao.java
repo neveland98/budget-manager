@@ -1,6 +1,7 @@
 package com.talentpath.budgetmanager.daos;
 
 import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
+import com.talentpath.budgetmanager.exceptions.InvalidUserIdException;
 import com.talentpath.budgetmanager.exceptions.NullArgumentException;
 import com.talentpath.budgetmanager.exceptions.NullParameterException;
 import com.talentpath.budgetmanager.models.Category;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Null;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -36,7 +38,8 @@ public class PostgresBudgetDao implements BudgetDao {
 
 
     @Override
-    public List<Transaction> getAllTransactions(Integer userId) {
+    public List<Transaction> getAllTransactions(Integer userId) throws NullArgumentException {
+        if(userId == null) throw new NullArgumentException("Null userId passed to getAllTransactions in PostgresBudgetDao.");
         return template.query("SELECT * FROM \"Transactions\" WHERE \"userId\" = "+ userId +" ORDER BY date ASC;",new TransactionMapper());
     }
 

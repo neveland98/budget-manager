@@ -1,6 +1,7 @@
 package com.talentpath.budgetmanager.daos;
 
 import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
+import com.talentpath.budgetmanager.exceptions.InvalidUserIdException;
 import com.talentpath.budgetmanager.exceptions.NullArgumentException;
 import com.talentpath.budgetmanager.exceptions.NullParameterException;
 import com.talentpath.budgetmanager.models.Category;
@@ -15,7 +16,7 @@ public interface BudgetDao {
      * @param userId Associated UserId for transactions to get.
      * @return <code>List</code> containing all transactions with matching userId.
      */
-    List<Transaction> getAllTransactions(Integer userId);
+    List<Transaction> getAllTransactions(Integer userId) throws InvalidUserIdException, NullArgumentException;
 
     /**
      * Adds a new Transaction to the database.

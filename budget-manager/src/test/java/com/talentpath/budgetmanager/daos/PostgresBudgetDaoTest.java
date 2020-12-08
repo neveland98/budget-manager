@@ -1,5 +1,6 @@
 package com.talentpath.budgetmanager.daos;
 
+import com.talentpath.budgetmanager.exceptions.InvalidUserIdException;
 import com.talentpath.budgetmanager.exceptions.NullArgumentException;
 import com.talentpath.budgetmanager.exceptions.NullParameterException;
 import com.talentpath.budgetmanager.models.Category;
@@ -110,17 +111,31 @@ class PostgresBudgetDaoTest {
             dao.addTransaction(transaction2);
             dao.addTransaction(transaction3);
 
-            Transaction get1 = dao.getTransactionById(1),
-                    get2 = dao.getTransactionById(2),
-                    get3 = dao.getTransactionById(3);
+            List<Transaction> allTransactions = dao.getAllTransactions(1);
 
-            assertEquals(transaction1,get1);
-            assertEquals(transaction2,get2);
-            assertEquals(transaction3,get3);
+            assertEquals(transaction1,allTransactions.get(0));
+            assertEquals(transaction2,allTransactions.get(1));
+            assertEquals(transaction3,allTransactions.get(2));
 
         }
         catch(Exception e) {
             fail("Exception caught on golden path test: " + e.getMessage());
+        }
+    }
+
+    //note: userId checking is done in service layer
+
+    @Test
+    void getAllTransactionsNullUserId() {
+        try {
+            dao.getAllTransactions(null);
+            fail("No exception caught.");
+        }
+        catch(NullArgumentException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
         }
     }
 

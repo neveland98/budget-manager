@@ -1,6 +1,7 @@
 package com.talentpath.budgetmanager.controllers;
 
 import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
+import com.talentpath.budgetmanager.exceptions.InvalidUserIdException;
 import com.talentpath.budgetmanager.exceptions.NullArgumentException;
 import com.talentpath.budgetmanager.exceptions.NullParameterException;
 import com.talentpath.budgetmanager.models.Category;
@@ -24,7 +25,7 @@ public class BudgetController {
 
     //GET
     @GetMapping("/transactions/{id}")
-    public List<Transaction> getAllTransactions(@PathVariable Integer id) {
+    public List<Transaction> getAllTransactions(@PathVariable Integer id) throws InvalidUserIdException, NullArgumentException {
         return service.getAllTransactions(id);
     }
 
