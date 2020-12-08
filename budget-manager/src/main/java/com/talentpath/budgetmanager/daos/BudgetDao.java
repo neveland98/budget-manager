@@ -8,7 +8,12 @@ import java.math.BigInteger;
 import java.util.List;
 
 public interface BudgetDao {
-    List<Transaction> getAllTransactions(Integer id);
+    /**
+     * Gets all transactions from the database with matching userId.
+     * @param userId Associated UserId for transactions to get.
+     * @return <code>List</code> containing all transactions with matching userId.
+     */
+    List<Transaction> getAllTransactions(Integer userId);
 
     /**
      * Adds a new Transaction to the database.

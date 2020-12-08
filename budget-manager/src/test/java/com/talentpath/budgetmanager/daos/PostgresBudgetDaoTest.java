@@ -18,6 +18,7 @@ import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -149,6 +150,31 @@ class PostgresBudgetDaoTest {
 
     @Test
     void deleteTransactionById() {
+        try {
+            Category general = new Category(1, "general", 1);
+            dao.addCategory(general);
+            Calendar calendar = Calendar.getInstance();
+
+            Transaction toAdd = new Transaction(1, BigInteger.valueOf(1000L), true, "test", calendar, general);
+            Transaction toAdd2 = new Transaction(1, BigInteger.valueOf(20000L), false, "income", calendar, general);
+            Transaction toAdd3 = new Transaction(1, BigInteger.valueOf(3535L), true, "weird", calendar, general);
+
+            dao.addTransaction(toAdd);
+            dao.addTransaction(toAdd2);
+            dao.addTransaction(toAdd3);
+
+            List<Transaction> allTransactions = dao.getAllTransactions(1);
+            List<Transaction> filteredList = allTransactions.stream().filter(transaction->!transaction.getTransactionId().equals(3)).collect(Collectors.toList());
+
+            dao.deleteTransactionById(3);
+
+            allTransactions = dao.getAllTransactions(1);
+            assertEquals(filteredList,allTransactions);
+
+        }
+        catch(Exception e) {
+            fail("Exception caught on golden path: " + e.getMessage());
+        }
     }
 
     @Test
