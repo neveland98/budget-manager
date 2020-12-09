@@ -1,9 +1,6 @@
 package com.talentpath.budgetmanager.daos;
 
-import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
-import com.talentpath.budgetmanager.exceptions.InvalidUserIdException;
-import com.talentpath.budgetmanager.exceptions.NullArgumentException;
-import com.talentpath.budgetmanager.exceptions.NullParameterException;
+import com.talentpath.budgetmanager.exceptions.*;
 import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +37,11 @@ public class PostgresBudgetDao implements BudgetDao {
     @Override
     public List<Transaction> getAllTransactions(Integer userId) throws NullArgumentException {
         if(userId == null) throw new NullArgumentException("Null userId passed to getAllTransactions in PostgresBudgetDao.");
-        return template.query("SELECT * FROM \"Transactions\" WHERE \"userId\" = "+ userId +" ORDER BY date ASC;",new TransactionMapper());
+        return template.query("SELECT \"transactionId\",\"userId\",\"charge\",\"description\",\"amount\",\"date\",\"associated_category_id\",\"category_name\"" +
+                " FROM \"Transactions\" t, \"categories\" c" +
+                " WHERE \"userId\" = '"+ userId +"'" +
+                " AND t.\"associated_category_id\" = c.\"category_id\"" +
+                " ORDER BY \"date\" ASC;",new TransactionMapper());
     }
 
     @Override
@@ -57,10 +58,12 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public Integer addTransaction(Transaction userTransaction) throws NullArgumentException, NullParameterException {
+    public Integer addTransaction(Transaction userTransaction) throws NullArgumentException, NullParameterException, InvalidArgumentException {
         if(userTransaction == null) throw new NullArgumentException("Null userTransaction passed to addTransaction in PostgresBudgetDao");
         else if(userTransaction.getUserId()==null||userTransaction.getAmount()==null||userTransaction.getCategory()==null||userTransaction.getDescription()==null||userTransaction.getDate()==null)
             throw new NullParameterException("One or more parameters in userTransaction passed to addTransaction in PostgresBudgetDao is null.");
+        else if(userTransaction.getDescription().equals(""))
+            throw new InvalidArgumentException("Blank description in userTransaction passed to addTransaction in PostgresBudgetDao.");
 
         return template.queryForObject("insert into \"Transactions\" " +
                 "(\"amount\",\"userId\",\"charge\",\"description\",\"date\",\"associated_category_id\") " +
@@ -100,7 +103,11 @@ public class PostgresBudgetDao implements BudgetDao {
     @Override
     public Transaction getTransactionById(Integer transactionId) throws BudgetDaoException {
         try {
-            return template.queryForObject("select * from \"Transactions\" where \"transactionId\" = "+ transactionId +";",new TransactionMapper());
+            return template.queryForObject("SELECT \"transactionId\",\"userId\",\"charge\",\"description\",\"amount\",\"date\",\"associated_category_id\",\"category_name\"" +
+                    " FROM \"Transactions\" t, \"categories\" c" +
+                    " WHERE \"transactionId\" = '"+ transactionId +"'" +
+                    " AND t.\"associated_category_id\" = c.\"category_id\"" +
+                    " ORDER BY \"date\" ASC;",new TransactionMapper());
         }
         catch (DataAccessException e) {
             throw new BudgetDaoException("No transaction with id: " + transactionId);
@@ -164,7 +171,13 @@ public class PostgresBudgetDao implements BudgetDao {
             calendar.setTime(date);
             //System.out.println("Calendar get date ms time: " + calendar.getTimeInMillis());
             toReturn.setDate(calendar);
-            toReturn.setCategory(template.queryForObject("select * from categories where category_id = '"+ resultSet.getInt("associated_category_id") +"';",new CategoryMapper()));
+            Category toSet = new Category();
+            toSet.setCategoryId(resultSet.getInt("associated_category_id"));
+            toSet.setCategoryName(resultSet.getString("category_name"));
+            toSet.setUser_id(resultSet.getInt("userId"));
+            toReturn.setCategory(toSet);
+            //instead of doing this query, we have changed the queries that uses this mapper to include the columns we need from categories automatically.
+//            toReturn.setCategory(template.queryForObject("select * from categories where category_id = '"+ resultSet.getInt("associated_category_id") +"';",new CategoryMapper()));
             return toReturn;
         }
     }

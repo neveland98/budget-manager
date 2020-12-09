@@ -1,9 +1,6 @@
 package com.talentpath.budgetmanager.controllers;
 
-import com.talentpath.budgetmanager.exceptions.BudgetDaoException;
-import com.talentpath.budgetmanager.exceptions.InvalidUserIdException;
-import com.talentpath.budgetmanager.exceptions.NullArgumentException;
-import com.talentpath.budgetmanager.exceptions.NullParameterException;
+import com.talentpath.budgetmanager.exceptions.*;
 import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 import com.talentpath.budgetmanager.services.BudgetService;
@@ -46,7 +43,7 @@ public class BudgetController {
     public BigInteger getMonthlyTotal(@PathVariable Integer id) {return service.getMonthlyTotal(id);}
     //POST
     @PostMapping("/transactions")
-    public Integer addTransaction(@RequestBody Transaction toAdd) throws NullArgumentException, NullParameterException {
+    public Integer addTransaction(@RequestBody Transaction toAdd) throws NullArgumentException, NullParameterException, InvalidArgumentException {
         return service.addTransaction(toAdd);
     }
     @PostMapping("/categories")

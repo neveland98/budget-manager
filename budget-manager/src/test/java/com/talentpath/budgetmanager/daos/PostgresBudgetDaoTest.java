@@ -1,5 +1,6 @@
 package com.talentpath.budgetmanager.daos;
 
+import com.talentpath.budgetmanager.exceptions.InvalidArgumentException;
 import com.talentpath.budgetmanager.exceptions.InvalidUserIdException;
 import com.talentpath.budgetmanager.exceptions.NullArgumentException;
 import com.talentpath.budgetmanager.exceptions.NullParameterException;
@@ -78,13 +79,87 @@ class PostgresBudgetDaoTest {
     }
 
     @Test
-    void addTransactionNullParameter() {//todo:add unit tests for every parameter being null, as well as transactions having the empty string as the description or amounts less than 0.
+    void addTransactionNullUserId() {//todo:add unit tests for every parameter being null, as well as transactions having the empty string as the description or amounts less than 0.
         try {
-            Transaction transaction = new Transaction(1,null,true,"haha",null,null);
+            Transaction transaction = new Transaction(null,BigInteger.valueOf(100L),true,"haha",Calendar.getInstance(),new Category(1,"general",1));
             dao.addTransaction(transaction);
             fail("No exception caught.");
         }
         catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void addTransactionNullAmount() {
+        try {
+            Transaction transaction = new Transaction(1,null,true,"haha",Calendar.getInstance(),new Category(1,"general",1));
+            dao.addTransaction(transaction);
+            fail("No exception caught.");
+        }
+        catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void addTransactionNullDescription() {
+        try {
+            Transaction transaction = new Transaction(1,BigInteger.valueOf(100L),true,null,Calendar.getInstance(),new Category(1,"general",1));
+            dao.addTransaction(transaction);
+            fail("No exception caught.");
+        }
+        catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void addTransactionNullDate() {
+        try {
+            Transaction transaction = new Transaction(1,BigInteger.valueOf(100L),true,"haha",null,new Category(1,"general",1));
+            dao.addTransaction(transaction);
+            fail("No exception caught.");
+        }
+        catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+    @Test
+    void addTransactionNullCategory() {
+        try {
+            Transaction transaction = new Transaction(1,BigInteger.valueOf(100L),true,"haha",Calendar.getInstance(),null);
+            dao.addTransaction(transaction);
+            fail("No exception caught.");
+        }
+        catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void addTransactionBlankDescription() {
+        try {
+            Transaction transaction = new Transaction(1,BigInteger.valueOf(100L),true,"",Calendar.getInstance(),new Category(1,"general",1));
+            dao.addTransaction(transaction);
+            fail("No exception caught.");
+        }
+        catch(InvalidArgumentException e) {
             //pass
         }
         catch(Exception e) {
