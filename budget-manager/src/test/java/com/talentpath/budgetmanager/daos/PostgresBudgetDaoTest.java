@@ -1,9 +1,6 @@
 package com.talentpath.budgetmanager.daos;
 
-import com.talentpath.budgetmanager.exceptions.InvalidArgumentException;
-import com.talentpath.budgetmanager.exceptions.InvalidUserIdException;
-import com.talentpath.budgetmanager.exceptions.NullArgumentException;
-import com.talentpath.budgetmanager.exceptions.NullParameterException;
+import com.talentpath.budgetmanager.exceptions.*;
 import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 import com.talentpath.budgetmanager.models.User;
@@ -365,6 +362,49 @@ class PostgresBudgetDaoTest {
             fail("No exception thrown.");
         }
         catch(NullParameterException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void editTransactionNullCategoryName() {
+        try {
+            Transaction transaction = new Transaction(1,BigInteger.valueOf(100L),true,"description",Calendar.getInstance(),new Category(1,null,1));
+            dao.editTransaction(transaction);
+            fail("No exception thrown.");
+        }
+        catch(InvalidCategoryException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+    @Test
+    void editTransactionNullCategoryId() {
+        try {
+            Transaction transaction = new Transaction(1,BigInteger.valueOf(100L),true,"description",Calendar.getInstance(),new Category(null,"null",1));
+            dao.editTransaction(transaction);
+            fail("No exception thrown.");
+        }
+        catch(InvalidCategoryException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+    @Test
+    void editTransactionNullCategoryUserId() {
+        try {
+            Transaction transaction = new Transaction(1,BigInteger.valueOf(100L),true,"description",Calendar.getInstance(),new Category(1,"null",null));
+            dao.editTransaction(transaction);
+            fail("No exception thrown.");
+        }
+        catch(InvalidCategoryException e) {
             //pass
         }
         catch(Exception e) {
