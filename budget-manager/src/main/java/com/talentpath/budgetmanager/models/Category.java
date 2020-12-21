@@ -60,6 +60,9 @@ public class Category {
         this.categoryName = categoryName;
     }
 
+    @JsonIgnore
+    public boolean isValid() {return categoryId != null && categoryName!= null && !categoryName.equals("") && user_id != null;}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
