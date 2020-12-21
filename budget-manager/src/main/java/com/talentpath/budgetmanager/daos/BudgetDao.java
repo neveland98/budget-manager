@@ -47,7 +47,7 @@ public interface BudgetDao {
      * @param updated Updated Transaction with values used to overwrite the values for the existing Transaction.
      * @return TransactionId of the updated Transaction.
      */
-    Integer editTransaction(Transaction updated) throws NullArgumentException, NullParameterException;
+    Integer editTransaction(Transaction updated) throws NullArgumentException, NullParameterException, InvalidCategoryException;
 
     /**
      * Adds given Category to the database.
