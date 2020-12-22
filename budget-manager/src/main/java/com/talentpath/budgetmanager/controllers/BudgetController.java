@@ -53,7 +53,7 @@ public class BudgetController {
     public Integer updateTransaction(@RequestBody Transaction updated) throws NullArgumentException, NullParameterException, InvalidCategoryException { return service.updateTransaction(updated);}
 
     @PutMapping("/categories")
-    public Integer updateCategory(@RequestBody Category updated) throws BudgetDaoException {return service.updateCategory(updated);}
+    public Integer updateCategory(@RequestBody Category updated) throws BudgetDaoException, NullArgumentException {return service.updateCategory(updated);}
 
     //DELETE
     @DeleteMapping("/transactions/{id}")

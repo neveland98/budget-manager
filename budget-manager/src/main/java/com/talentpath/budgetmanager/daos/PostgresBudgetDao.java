@@ -135,8 +135,9 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public Integer editCategory(Category updated) {
-            return template.queryForObject("update categories set category_name='"+ updated.getCategoryName() +"' where category_id = '"+ updated.getCategoryId() +"' returning category_id;",new CategoryIdMapper());
+    public Integer editCategory(Category updated) throws NullArgumentException {
+        if(updated == null) throw new NullArgumentException("Null updated Category passed to editCategory in PostgresBudgetDao.");
+        return template.queryForObject("update categories set category_name='"+ updated.getCategoryName() +"' where category_id = '"+ updated.getCategoryId() +"' returning category_id;",new CategoryIdMapper());
     }
 
     @Override
