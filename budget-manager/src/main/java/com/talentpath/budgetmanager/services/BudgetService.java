@@ -21,10 +21,6 @@ public class BudgetService {
     @Autowired
     public BudgetService(BudgetDao dao) {this.dao = dao;}
 
-//    public List<Transaction> makeTransaction(Transaction userTransaction) throws NullArgumentException, NullParameterException, InvalidUserIdException, InvalidArgumentException {
-//        dao.addTransaction(userTransaction);
-//        return dao.getAllTransactions(userTransaction.getUserId());
-//    }
     public List<Transaction> getAllTransactions(Integer id) throws InvalidUserIdException, NullArgumentException {
         return dao.getAllTransactions(id);
     }
