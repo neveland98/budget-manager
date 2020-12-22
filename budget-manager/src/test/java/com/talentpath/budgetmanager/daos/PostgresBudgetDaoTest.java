@@ -35,6 +35,8 @@ class PostgresBudgetDaoTest {
     UserRepository repo;
     @Autowired
     RoleRepository roleRepo;
+    @Autowired
+    CategoryRepository categoryRepo;
 
     @BeforeEach
     @Transactional
@@ -498,7 +500,7 @@ class PostgresBudgetDaoTest {
     }
 
     @Test
-    void addCategory() {
+    void addCategory() {//todo: add more unit tests for addCategory with invalid categories, null category, etc.
         try {
             Category category = new Category(1, "general", 1);
             Category added = dao.addCategory(category);
@@ -535,7 +537,7 @@ class PostgresBudgetDaoTest {
     }
 
     @Test
-    void editCategory() {
+    void editCategory() {//todo: add more tests for editCategory with invalid edited categories
         try {
             Category toAdd = new Category(1, "cheese", 1);
             toAdd = dao.addCategory(toAdd);
@@ -563,6 +565,16 @@ class PostgresBudgetDaoTest {
 
     @Test
     void deleteCategoryById() {
+        try {
+            Category category = new Category(1, "cheese", 1);
+            category = dao.addCategory(category);
+            dao.deleteCategoryById(category.getCategoryId());
+            List<Category> list = categoryRepo.findAllByAssociatedUser_UserId(1);
+            assertEquals(0,list.size());
+        }
+        catch(Exception e) {
+            fail("Exception caught during golden path test: " + e.getMessage());
+        }
     }
 
     @Test
