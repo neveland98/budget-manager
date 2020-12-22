@@ -536,6 +536,16 @@ class PostgresBudgetDaoTest {
 
     @Test
     void editCategory() {
+        try {
+            Category toAdd = new Category(1, "cheese", 1);
+            toAdd = dao.addCategory(toAdd);
+            toAdd.setCategoryName("food");
+            toAdd.setCategoryId(dao.editCategory(toAdd));
+            assertEquals(toAdd, dao.getCategoryById(toAdd.getCategoryId()));
+        }
+        catch(Exception e) {
+            fail("Exception caught during golden path test.");
+        }
     }
 
     @Test
