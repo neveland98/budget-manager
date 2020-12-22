@@ -441,6 +441,19 @@ class PostgresBudgetDaoTest {
     }
 
     @Test
+    void deleteTransactionByIdNullId() {
+        try {
+            dao.deleteTransactionById(null);
+        }
+        catch(NullArgumentException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
     void getTransactionById() {
     }
 
