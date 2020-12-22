@@ -547,6 +547,19 @@ class PostgresBudgetDaoTest {
             fail("Exception caught during golden path test.");
         }
     }
+    @Test
+    void editCategoryNullCategory() {
+        try {
+            dao.editCategory(null);
+            fail("No exception thrown.");
+        }
+        catch(NullArgumentException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
 
     @Test
     void deleteCategoryById() {
