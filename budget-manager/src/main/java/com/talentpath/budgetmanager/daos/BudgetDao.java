@@ -35,7 +35,7 @@ public interface BudgetDao {
      * @param transactionId ID value of the Transaction to delete.
      * @throws BudgetDaoException if there is not Transaction with matching transactionId in the database.
      */
-    void deleteTransactionById(Integer transactionId) throws BudgetDaoException;
+    void deleteTransactionById(Integer transactionId) throws BudgetDaoException, NullArgumentException;
 
     /**
      * Resets the database (for testing purposes only)

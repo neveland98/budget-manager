@@ -57,7 +57,7 @@ public class BudgetController {
 
     //DELETE
     @DeleteMapping("/transactions/{id}")
-    public void deleteTransaction(@PathVariable Integer id) throws BudgetDaoException { service.deleteById(id); }
+    public void deleteTransaction(@PathVariable Integer id) throws BudgetDaoException, NullArgumentException { service.deleteById(id); }
     @DeleteMapping("/category/{id}")
     public void deleteCategory(@PathVariable Integer id) {service.deleteCategoryById(id);}
 }

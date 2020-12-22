@@ -92,7 +92,8 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public void deleteTransactionById(Integer transactionId) throws BudgetDaoException {
+    public void deleteTransactionById(Integer transactionId) throws BudgetDaoException, NullArgumentException {
+        if(transactionId == null) throw new NullArgumentException("Null transactionId passed to deleteTransactionById in PostgresBudgetDao.");
         try {
             template.update("DELETE FROM \"Transactions\" WHERE \"transactionId\" = '"+ transactionId +"';");
         }

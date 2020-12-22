@@ -32,7 +32,7 @@ public class BudgetService {
         return dao.addTransaction(toAdd);
     }
 
-    public void deleteById(Integer id) throws BudgetDaoException {
+    public void deleteById(Integer id) throws BudgetDaoException, NullArgumentException {
         dao.deleteTransactionById(id);
     }
 
