@@ -28,7 +28,7 @@ public interface BudgetDao {
      * @return A Transaction object.
      * @throws BudgetDaoException if there is not Transaction with matching transactionId in the database.
      */
-    Transaction getTransactionById(Integer transactionId) throws BudgetDaoException;
+    Transaction getTransactionById(Integer transactionId) throws BudgetDaoException, NullArgumentException;
 
     /**
      * Deletes a Transaction with matching transactionId from the database.

@@ -103,7 +103,8 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public Transaction getTransactionById(Integer transactionId) throws BudgetDaoException {
+    public Transaction getTransactionById(Integer transactionId) throws BudgetDaoException, NullArgumentException {
+        if(transactionId == null) throw new NullArgumentException("Null transactionId passed to getTransactionById in PostgresBudgetDao.");
         try {
             return template.queryForObject("SELECT \"transactionId\",\"userId\",\"charge\",\"description\",\"amount\",\"date\",\"associated_category_id\",\"category_name\"" +
                     " FROM \"Transactions\" t, \"categories\" c" +

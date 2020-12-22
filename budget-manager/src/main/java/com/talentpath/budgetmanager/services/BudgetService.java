@@ -24,7 +24,7 @@ public class BudgetService {
     public List<Transaction> getAllTransactions(Integer id) throws InvalidUserIdException, NullArgumentException {
         return dao.getAllTransactions(id);
     }
-    public Transaction getTransactionById(Integer transactionId) throws BudgetDaoException {
+    public Transaction getTransactionById(Integer transactionId) throws BudgetDaoException, NullArgumentException {
         return dao.getTransactionById(transactionId);
     }
 

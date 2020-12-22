@@ -27,7 +27,7 @@ public class BudgetController {
     }
 
     @GetMapping("/transaction/{id}")
-    public Transaction getTransactionById(@PathVariable Integer id) throws BudgetDaoException {return service.getTransactionById(id);}
+    public Transaction getTransactionById(@PathVariable Integer id) throws BudgetDaoException, NullArgumentException {return service.getTransactionById(id);}
 
     @GetMapping("/category/{id}")
     public Category getCategoryById(@PathVariable Integer id) throws BudgetDaoException {return service.getCategoryById(id);}

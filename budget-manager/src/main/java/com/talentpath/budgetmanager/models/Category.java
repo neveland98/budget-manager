@@ -70,7 +70,7 @@ public class Category {
 
         Category category = (Category) o;
 
-        if (categoryId != null ? !categoryId.equals(category.categoryId) : category.categoryId != null) return false;
+//        if (categoryId != null ? !categoryId.equals(category.categoryId) : category.categoryId != null) return false;
         if (categoryName != null ? !categoryName.equals(category.categoryName) : category.categoryName != null)
             return false;
         return user_id != null ? user_id.equals(category.user_id) : category.user_id == null;
