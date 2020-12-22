@@ -455,6 +455,30 @@ class PostgresBudgetDaoTest {
 
     @Test
     void getTransactionById() {
+        try {
+            Category general = new Category(1, "general", 1);
+            dao.addCategory(general);
+            Calendar calendar = Calendar.getInstance();
+            Transaction toAdd = new Transaction(1, BigInteger.valueOf(1000L), true, "test", calendar, general);
+            Transaction toAdd2 = new Transaction(1, BigInteger.valueOf(20000L), false, "income", calendar, general);
+            Transaction toAdd3 = new Transaction(1, BigInteger.valueOf(3535L), true, "weird", calendar, general);
+
+            Integer id1 = dao.addTransaction(toAdd);
+            Integer id2 = dao.addTransaction(toAdd2);
+            Integer id3 = dao.addTransaction(toAdd3);
+
+            Transaction t1 = dao.getTransactionById(id1);
+            Transaction t2 = dao.getTransactionById(id2);
+            Transaction t3 = dao.getTransactionById(id3);
+
+            assertEquals(toAdd,t1);
+            assertEquals(toAdd2,t2);
+            assertEquals(toAdd3,t3);
+
+        }
+        catch(Exception e) {
+            fail("Exception caught on golden path: " + e.getMessage());
+        }
     }
 
     @Test
