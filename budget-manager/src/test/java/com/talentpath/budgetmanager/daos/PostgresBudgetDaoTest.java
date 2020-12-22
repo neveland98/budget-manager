@@ -5,6 +5,7 @@ import com.talentpath.budgetmanager.models.Category;
 import com.talentpath.budgetmanager.models.Transaction;
 import com.talentpath.budgetmanager.models.User;
 import org.checkerframework.checker.units.qual.A;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -444,6 +445,7 @@ class PostgresBudgetDaoTest {
     void deleteTransactionByIdNullId() {
         try {
             dao.deleteTransactionById(null);
+            fail("No exception thrown.");
         }
         catch(NullArgumentException e) {
             //pass
@@ -482,11 +484,54 @@ class PostgresBudgetDaoTest {
     }
 
     @Test
+    void getTransactionByIdNullId() {
+        try {
+            dao.getTransactionById(null);
+            fail("No exception thrown.");
+        }
+        catch(NullArgumentException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught.");
+        }
+    }
+
+    @Test
     void addCategory() {
+        try {
+            Category category = new Category(1, "general", 1);
+            Category added = dao.addCategory(category);
+            Category check = dao.getCategoryById(added.getCategoryId());
+            assertEquals(added,check);
+        }
+        catch(Exception e) {
+            fail("Exception caught during golden path test: " + e.getMessage());
+        }
     }
 
     @Test
     void getCategoryById() {
+        try {
+            Category category = new Category(1, "general", 1);
+            Category category2 = new Category(2, "food",1);
+            Category category3 = new Category(3,"toys",1);
+
+            Category added = dao.addCategory(category);
+            Category added2 = dao.addCategory(category2);
+            Category added3 = dao.addCategory(category3);
+
+            Category check = dao.getCategoryById(added.getCategoryId());
+            Category check2 = dao.getCategoryById(added2.getCategoryId());
+            Category check3 = dao.getCategoryById(added3.getCategoryId());
+
+            assertEquals(added,check);
+            assertEquals(added2,check2);
+            assertEquals(added3, check3);
+        }
+        catch(Exception e) {
+            fail("Exception caught during golden path test: " + e.getMessage());
+        }
     }
 
     @Test
