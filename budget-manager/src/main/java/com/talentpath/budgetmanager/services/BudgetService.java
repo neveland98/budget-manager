@@ -52,7 +52,7 @@ public class BudgetService {
         return dao.getCategoryById(id);
     }
 
-    public Integer updateCategory(Category updated) throws BudgetDaoException, NullArgumentException {
+    public Integer updateCategory(Category updated) throws BudgetDaoException, NullArgumentException, InvalidArgumentException {
         return dao.editCategory(updated);
     }
 

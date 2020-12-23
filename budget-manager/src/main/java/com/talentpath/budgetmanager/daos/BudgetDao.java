@@ -69,7 +69,7 @@ public interface BudgetDao {
      * @param updated Updated Category with values used to overwrite the values for the existing Category.
      * @return CategoryId of the updated Category.
      */
-    Integer editCategory(Category updated) throws NullArgumentException;
+    Integer editCategory(Category updated) throws NullArgumentException, InvalidArgumentException;
 
     /**
      * Deletes Category with matching categoryId from the database.
