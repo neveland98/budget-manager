@@ -36,7 +36,7 @@ public class BudgetService {
         dao.deleteTransactionById(id);
     }
 
-    public Integer updateTransaction(Transaction updated) throws NullArgumentException, NullParameterException, InvalidCategoryException {
+    public Integer updateTransaction(Transaction updated) throws NullArgumentException, NullParameterException, InvalidArgumentException {
         return dao.editTransaction(updated);
     }
 

@@ -23,24 +23,22 @@ public class ErrorHandler {
     public String errorMessageOnNullArgumentException(NullArgumentException ex, WebRequest request) {
         return request.toString() + " an error occurred: " + ex.getMessage();
     }
+
     @ExceptionHandler(value = NullParameterException.class)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public String errorMessageOnNullArgumentException(NullParameterException ex, WebRequest request) {
         return request.toString() + " an error occurred: " + ex.getMessage();
     }
+
     @ExceptionHandler(value = InvalidArgumentException.class)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public String errorMessageOnNullArgumentException(InvalidArgumentException ex, WebRequest request) {
         return request.toString() + " an error occurred: " + ex.getMessage();
     }
+
     @ExceptionHandler(value = InvalidUserIdException.class)
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public String errorMessageOnNullArgumentException(InvalidUserIdException ex, WebRequest request) {
-        return request.toString() + " an error occurred: " + ex.getMessage();
-    }
-    @ExceptionHandler(value = InvalidCategoryException.class)
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    public String errorMessageOnNullArgumentException(InvalidCategoryException ex, WebRequest request) {
         return request.toString() + " an error occurred: " + ex.getMessage();
     }
 }

@@ -379,7 +379,7 @@ class PostgresBudgetDaoTest {
             dao.editTransaction(transaction);
             fail("No exception thrown.");
         }
-        catch(InvalidCategoryException e) {
+        catch(InvalidArgumentException e) {
             //pass
         }
         catch(Exception e) {
@@ -393,7 +393,7 @@ class PostgresBudgetDaoTest {
             dao.editTransaction(transaction);
             fail("No exception thrown.");
         }
-        catch(InvalidCategoryException e) {
+        catch(InvalidArgumentException e) {
             //pass
         }
         catch(Exception e) {
@@ -407,7 +407,7 @@ class PostgresBudgetDaoTest {
             dao.editTransaction(transaction);
             fail("No exception thrown.");
         }
-        catch(InvalidCategoryException e) {
+        catch(InvalidArgumentException e) {
             //pass
         }
         catch(Exception e) {
@@ -561,6 +561,12 @@ class PostgresBudgetDaoTest {
         catch(Exception e) {
             fail("Wrong exception caught: " + e.getMessage());
         }
+    }
+
+    @Test
+    void editCategoryNullUserId() {
+
+
     }
 
     @Test

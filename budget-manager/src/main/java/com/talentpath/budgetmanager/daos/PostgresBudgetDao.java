@@ -77,11 +77,11 @@ public class PostgresBudgetDao implements BudgetDao {
     }
 
     @Override
-    public Integer editTransaction(Transaction updated) throws NullArgumentException, NullParameterException, InvalidCategoryException {
+    public Integer editTransaction(Transaction updated) throws NullArgumentException, NullParameterException, InvalidArgumentException {
         if(updated == null) throw new NullArgumentException("Null updated transaction parameter passed to editTransaction in PostgresBudgetDao.");
         else if(updated.getUserId()==null||updated.getAmount()==null||updated.getDescription()==null||updated.getCategory()==null||updated.getDate()==null)
             throw new NullParameterException("One or more parameters in Transaction passed to editTransaction in PostgresBudgetDao is null.");
-        else if(!updated.getCategory().isValid()) throw new InvalidCategoryException("Invalid category passed in updated Transaction in editTransaction in postgresBudgetDao");
+        else if(!updated.getCategory().isValid()) throw new InvalidArgumentException("Invalid category passed in updated Transaction in editTransaction in postgresBudgetDao");
         return template.queryForObject("update \"Transactions\"\n" +
                 "set charge = '"+ updated.isCharge() +"', " +
                 "description = '"+ updated.getDescription() +"', " +

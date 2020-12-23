@@ -50,7 +50,7 @@ public class BudgetController {
     public Category addCategory(@RequestBody Category toAdd) throws BudgetDaoException {return service.addCategory(toAdd);}
     //PUT
     @PutMapping("/transactions")
-    public Integer updateTransaction(@RequestBody Transaction updated) throws NullArgumentException, NullParameterException, InvalidCategoryException { return service.updateTransaction(updated);}
+    public Integer updateTransaction(@RequestBody Transaction updated) throws NullArgumentException, NullParameterException, InvalidArgumentException { return service.updateTransaction(updated);}
 
     @PutMapping("/categories")
     public Integer updateCategory(@RequestBody Category updated) throws BudgetDaoException, NullArgumentException {return service.updateCategory(updated);}
