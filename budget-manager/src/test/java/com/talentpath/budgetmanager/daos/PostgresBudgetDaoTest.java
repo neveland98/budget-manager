@@ -565,8 +565,44 @@ class PostgresBudgetDaoTest {
 
     @Test
     void editCategoryNullUserId() {
+        try {
+            dao.editCategory(new Category(1,"cheese",null));
+            fail("No exception thrown.");
+        }
+        catch(InvalidArgumentException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
 
+    @Test
+    void editCategoryNullDescription() {
+        try {
+            dao.editCategory(new Category(1,null,1));
+            fail("No exception thrown.");
+        }
+        catch(InvalidArgumentException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
 
+    @Test
+    void editCategoryBlankDescription() {//todo: add checking in service layer for "valid" names (alphanumeric strings only)
+        try {
+            dao.editCategory(new Category(1,"",1));
+            fail("No exception thrown.");
+        }
+        catch(InvalidArgumentException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
     }
 
     @Test

@@ -61,7 +61,7 @@ public class Category {
     }
 
     @JsonIgnore
-    public boolean isValid() {return categoryId != null && categoryName!= null && !categoryName.equals("") && user_id != null;}
+    public boolean isValid() {return categoryId != null && categoryName!= null && !categoryName.equals("") && user_id != null;}//todo: this probably shouldn't be a part of the object, maybe move this logic to dao and service layer?
 
     @Override
     public boolean equals(Object o) {
