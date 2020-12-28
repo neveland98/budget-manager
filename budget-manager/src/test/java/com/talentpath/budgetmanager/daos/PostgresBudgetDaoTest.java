@@ -635,5 +635,19 @@ class PostgresBudgetDaoTest {
 
     @Test
     void getMonthlyTotal() {
+        try {
+            Calendar now = Calendar.getInstance();
+            Category general = dao.addCategory(new Category(1, "general", 1));
+            Category paycheck = dao.addCategory(new Category(2, "paycheck", 1));
+            dao.addTransaction(new Transaction(1, BigInteger.valueOf(200000L), false, "paycheck", now, paycheck));
+            dao.addTransaction(new Transaction(1,BigInteger.valueOf(1000L),true,"food",now,general));
+            dao.addTransaction(new Transaction(1,BigInteger.valueOf(5000L),true,"groceries",now,general));
+            BigInteger total = dao.getRunningTotal(1);
+            assertEquals(total,BigInteger.valueOf(194000L));
+        }
+        catch(Exception e) {
+            fail("Exception caught during golden path test: " + e.getMessage());
+        }
+
     }
 }
