@@ -75,7 +75,7 @@ public interface BudgetDao {
      * Deletes Category with matching categoryId from the database.
      * @param categoryId CategoryId of the Category to delete.
      */
-    void deleteCategoryById(Integer categoryId);//todo: this should throw an exception if there is no category with matching id!
+    void deleteCategoryById(Integer categoryId) throws NullArgumentException;//todo: this should throw an exception if there is no category with matching id!
 
     /**
      * Gets running total of all transactions with matching userId from the database.

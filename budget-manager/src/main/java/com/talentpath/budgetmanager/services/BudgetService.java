@@ -56,7 +56,7 @@ public class BudgetService {
         return dao.editCategory(updated);
     }
 
-    public void deleteCategoryById(Integer id) {
+    public void deleteCategoryById(Integer id) throws NullArgumentException {
         dao.deleteCategoryById(id);
     }
 
