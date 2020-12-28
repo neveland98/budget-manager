@@ -620,6 +620,20 @@ class PostgresBudgetDaoTest {
     }
 
     @Test
+    void deleteCategoryByIdNullId() {
+        try {
+            dao.deleteCategoryById(null);
+            fail("No exception thrown.");
+        }
+        catch(NullArgumentException e) {
+            //pass
+        }
+        catch(Exception e) {
+            fail("Wrong exception caught: " + e.getMessage());
+        }
+    }
+
+    @Test
     void getMonthlyTotal() {
     }
 }
